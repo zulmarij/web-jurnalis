@@ -3,7 +3,7 @@
 return [
     'shield_resource' => [
         'should_register_navigation' => true,
-        'slug' => 'shield/roles',
+        'slug' => 'roles',
         'navigation_sort' => -1,
         'navigation_badge' => true,
         'navigation_group' => true,
@@ -37,8 +37,8 @@ return [
             'update',
             'restore',
             'restore_any',
-            'replicate',
-            'reorder',
+            // 'replicate',
+            // 'reorder',
             'delete',
             'delete_any',
             'force_delete',
