@@ -4,7 +4,7 @@ return [
     'shield_resource' => [
         'should_register_navigation' => true,
         'slug' => 'roles',
-        'navigation_sort' => -1,
+        'navigation_sort' => 1,
         'navigation_badge' => true,
         'navigation_group' => true,
         'is_globally_searchable' => false,
@@ -35,14 +35,14 @@ return [
             'view_any',
             'create',
             'update',
-            'restore',
-            'restore_any',
+            // 'restore',
+            // 'restore_any',
             // 'replicate',
             // 'reorder',
             'delete',
             'delete_any',
-            'force_delete',
-            'force_delete_any',
+            // 'force_delete',
+            // 'force_delete_any',
         ],
 
         'page' => 'page',
@@ -51,7 +51,7 @@ return [
 
     'entities' => [
         'pages' => true,
-        'widgets' => true,
+        'widgets' => false,
         'resources' => true,
         'custom_permissions' => false,
     ],
