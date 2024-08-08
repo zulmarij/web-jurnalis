@@ -10,12 +10,12 @@ use Exception;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Auth\VerifyEmail;
@@ -30,7 +30,6 @@ use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Actions\RestoreBulkAction;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -68,13 +67,12 @@ class UserResource extends Resource implements HasShieldPermissions
                     ->schema([
                         Grid::make()
                             ->schema([
-                                SpatieMediaLibraryFileUpload::make('media')
-                                    ->hiddenLabel()
+                                FileUpload::make('avatar')
                                     ->avatar()
-                                    ->collection('users/avatars')
-                                    ->required()
+                                    ->imageEditor()
                                     ->alignCenter()
-                                    ->columnSpanFull(),
+                                    ->hiddenLabel()
+                                    ->columnSpan('full'),
                                 TextInput::make('username')
                                     ->required()
                                     ->unique(ignoreRecord: true)
@@ -157,10 +155,6 @@ class UserResource extends Resource implements HasShieldPermissions
     {
         return $table
             ->columns([
-                SpatieMediaLibraryImageColumn::make('media')
-                    ->label('Avatar')
-                    ->collection('users/avatars')
-                    ->wrap(),
                 TextColumn::make('username')->label('Username')
                     ->description(fn (Model $record) => $record->firstname . ' ' . $record->lastname)
                     ->searchable(),

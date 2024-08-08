@@ -11,15 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Image\Enums\Fit;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements FilamentUser, HasAvatar, HasName, HasMedia
+class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
 {
-    use HasFactory, Notifiable, HasRoles, SoftDeletes, InteractsWithMedia;
+    use HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +28,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName, 
         'email',
         'firstname',
         'lastname',
+        'avatar',
         'password',
     ];
 
@@ -69,7 +67,17 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName, 
 
     public function getFilamentAvatarUrl(): ?string
     {
-        return $this->getPhotoAttribute();
+        return $this->avatar;
+    }
+
+    public function getAvatarAttribute()
+    {
+        if ($this->attributes['avatar']) {
+            return Storage::url($this->attributes['avatar']);
+        }
+
+        $emailHash = md5(strtolower(trim($this->email)));
+        return "https://www.gravatar.com/avatar/{$emailHash}";
     }
 
     public function getNameAttribute()
@@ -77,21 +85,9 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName, 
         return "{$this->firstname} {$this->lastname}";
     }
 
-    public function getPhotoAttribute()
-    {
-        return $this->getMedia('users/avatars')?->first()?->getUrl() ?? $this->getMedia('user/avatars')?->first()?->getUrl('thumb') ?? null;
-    }
-
     public function canComment(): bool
     {
         return true;
-    }
-
-    public function registerMediaConversions(Media|null $media = null): void
-    {
-        $this->addMediaConversion('thumb')
-            ->fit(Fit::Contain, 300, 300)
-            ->nonQueued();
     }
 
     public function posts()

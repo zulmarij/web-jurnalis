@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Enums\PostStatus;
+use Awcodes\Curator\Components\Forms\CuratorPicker;
+use Awcodes\Curator\Models\Media;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Set;
@@ -21,18 +22,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Post extends Model implements HasMedia, Auditable
+class Post extends Model implements Auditable
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, AuditableTrait;
+    use HasFactory, SoftDeletes, AuditableTrait;
 
     protected $fillable = [
         'title',
         'slug',
         'sub_title',
         'body',
+        'image_id',
         'status',
         'published_at',
         'scheduled_for',
@@ -72,6 +72,11 @@ class Post extends Model implements HasMedia, Auditable
     public function seoDetail()
     {
         return $this->hasOne(SeoDetail::class);
+    }
+
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(Media::class);
     }
 
     public function isNotPublished()
@@ -117,11 +122,6 @@ class Post extends Model implements HasMedia, Auditable
         })->published()->with('user')->take($take)->get();
     }
 
-    protected function getPhotoAttribute()
-    {
-        return asset('storage/' . $this->cover_photo_path);
-    }
-
     public static function getForm()
     {
         return [
@@ -161,10 +161,8 @@ class Post extends Model implements HasMedia, Auditable
                 ->required()
                 ->columnSpanFull(),
 
-            SpatieMediaLibraryFileUpload::make('media')
-                ->collection('posts/images')
-                ->required()
-                ->columnSpanFull(),
+            CuratorPicker::make('image_id')
+                ->label('Featured Image'),
 
             Fieldset::make()
                 ->schema([

@@ -4,8 +4,8 @@ namespace App\Livewire;
 
 use Exception;
 use Filament\Facades\Filament;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Jeffgreco13\FilamentBreezy\Livewire\MyProfileComponent;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -53,10 +53,11 @@ class MyProfileExtended extends MyProfileComponent
     {
         return $form
             ->schema([
-                SpatieMediaLibraryFileUpload::make('media')->label('Avatar')
-                    ->collection('users/avatars')
+                FileUpload::make('avatar')
                     ->avatar()
-                    ->required(),
+                    ->imageEditor()
+                    ->alignCenter()
+                    ->hiddenLabel(),
                 Grid::make()->schema([
                     TextInput::make('username')
                         ->disabled()

@@ -33,8 +33,8 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'media_action' => FilamentTiptapEditor\Actions\MediaAction::class,
-    //    'media_action' => Awcodes\Curator\Actions\MediaAction::class,
+    // 'media_action' => FilamentTiptapEditor\Actions\MediaAction::class,
+    'media_action' => Awcodes\Curator\Actions\MediaAction::class,
     'edit_media_action' => FilamentTiptapEditor\Actions\EditMediaAction::class,
     'link_action' => FilamentTiptapEditor\Actions\LinkAction::class,
 
@@ -63,7 +63,7 @@ return [
     */
     'accepted_file_types' => ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml', 'application/pdf'],
     'disk' => 'public',
-    'directory' => 'post/images',
+    'directory' => 'posts/images',
     'visibility' => 'public',
     'preserve_file_names' => false,
     'max_file_size' => 2042,

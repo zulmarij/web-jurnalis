@@ -7,6 +7,7 @@ use App\Filament\Pages\Auth\Register;
 use App\Filament\Pages\HealthCheckResults;
 use App\Livewire\MyProfileExtended;
 use App\Settings\GeneralSettings;
+use Awcodes\Curator\CuratorPlugin;
 use BezhanSalleh\FilamentExceptions\FilamentExceptionsPlugin;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Croustibat\FilamentJobsMonitor\FilamentJobsMonitorPlugin;
@@ -88,7 +89,8 @@ class AdminPanelProvider extends PanelProvider
                     )->myProfileComponents([
                         'personal_info' => MyProfileExtended::class,
                     ]),
-                FilamentJobsMonitorPlugin::make()
+                FilamentJobsMonitorPlugin::make(),
+                CuratorPlugin::make(),
             ]);
     }
 }

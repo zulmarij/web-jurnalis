@@ -6,7 +6,7 @@ use App\Filament\Resources\CommentResource\Pages\CreateComment;
 use App\Filament\Resources\CommentResource\Pages\EditComment;
 use App\Filament\Resources\CommentResource\Pages\ListComments;
 use App\Models\Comment;
-use App\Tables\Columns\UserAvatarName;
+use App\Filament\Tables\Columns\UserAvatarName;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;

@@ -12,7 +12,8 @@ use App\Filament\Resources\PostResource\Pages\ViewPost;
 use App\Filament\Resources\PostResource\RelationManagers\CommentsRelationManager;
 use App\Filament\Resources\PostResource\RelationManagers\SeoDetailRelationManager;
 use App\Models\Post;
-use App\Tables\Columns\UserAvatarName;
+use App\Filament\Tables\Columns\UserAvatarName;
+use Awcodes\Curator\Components\Tables\CuratorColumn;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\Fieldset;
@@ -29,7 +30,6 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
@@ -80,6 +80,7 @@ class PostResource extends Resource implements HasShieldPermissions
         return $table
             ->deferLoading()
             ->columns([
+
                 TextColumn::make('title')
                     ->description(function (Post $record) {
                         return Str::limit($record->sub_title, 40);
@@ -91,10 +92,9 @@ class PostResource extends Resource implements HasShieldPermissions
                         return $state->getColor();
                     }),
 
-                SpatieMediaLibraryImageColumn::make('media')
-                    ->label('Image')
-                    ->collection('posts/images')
-                    ->wrap(),
+                CuratorColumn::make('image')
+                    ->circular()
+                    ->size(32),
 
                 UserAvatarName::make('user')
                     ->label('Author'),
