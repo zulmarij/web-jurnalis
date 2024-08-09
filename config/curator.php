@@ -44,11 +44,11 @@ return [
     'resources' => [
         'label' => 'Media',
         'plural_label' => 'Media',
-        'navigation_group' => null,
+        'navigation_group' => 'Content Management',
         'cluster' => null,
         'navigation_label' => 'Media',
         'navigation_icon' => 'heroicon-o-photo',
-        'navigation_sort' => null,
+        'navigation_sort' => 6,
         'navigation_count_badge' => false,
         'resource' => \Awcodes\Curator\Resources\MediaResource::class,
     ],

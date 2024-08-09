@@ -38,6 +38,8 @@ class NewsLetterResource extends Resource implements HasShieldPermissions
     {
         return $form
             ->schema([
+                TextInput::make('name')
+                    ->required(),
                 TextInput::make('email')
                     ->email()
                     ->required()
@@ -53,6 +55,8 @@ class NewsLetterResource extends Resource implements HasShieldPermissions
     {
         return $table
             ->columns([
+                TextColumn::make('name')
+                    ->searchable(),
                 TextColumn::make('email')
                     ->searchable(),
                 ToggleColumn::make('subscribed')

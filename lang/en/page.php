@@ -30,24 +30,25 @@ return [
                 "title" => "Site",
                 "description" => "Manage basic settings."
             ],
-            "theme" => [
-                "title" => "Theme",
-                "description" => "Change default theme."
+            "color" => [
+                "title" => "Color",
+                "description" => "Change default color."
             ],
         ],
         "fields" => [
-            "brand_name" => "Brand Name",
-            "site_active" => "Site Status",
-            "brand_logoHeight" => "Brand Logo Height",
-            "brand_logo" => "Brand Logo",
+            "site_name" => "Site Name",
+            "site_description" => "Site Description",
+            "site_logo" => "Site Logo",
             "site_favicon" => "Site Favicon",
-            "primary" => "Primary",
-            "secondary" => "Secondary",
-            "gray" => "Gray",
-            "success" => "Success",
-            "danger" => "Danger",
-            "info" => "Info",
-            "warning" => "Warning",
+            "site_colors" => [
+                "primary" => "Primary Color",
+                "secondary" => "Secondary Color",
+                "gray" => "Gray Color",
+                "success" => "Success Color",
+                "danger" => "Danger Color",
+                "info" => "Info Color",
+                "warning" => "Warning Color",
+            ],
         ]
     ],
 

@@ -6,12 +6,11 @@ return new class extends SettingsMigration
 {
     public function up(): void
     {
-        $this->migrator->add('general.brand_name', 'Web Jurnal');
-        $this->migrator->add('general.brand_logo', 'sites/logo.png');
-        $this->migrator->add('general.brand_logoHeight', '3rem');
-        $this->migrator->add('general.site_active', true);
+        $this->migrator->add('general.site_name', 'Web Jurnal');
+        $this->migrator->add('general.site_description', 'Web Jurnal');
+        $this->migrator->add('general.site_logo', 'sites/logo.png');
         $this->migrator->add('general.site_favicon', 'sites/logo.ico');
-        $this->migrator->add('general.site_theme', [
+        $this->migrator->add('general.site_colors', [
             "primary" => "rgb(19, 83, 196)",
             "secondary" => "rgb(255, 137, 84)",
             "gray" => "rgb(107, 114, 128)",

@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
@@ -112,6 +113,11 @@ class Post extends Model implements Auditable
     public function isStatusPublished()
     {
         return $this->status === PostStatus::PUBLISHED;
+    }
+
+    protected function getImageUrlAttribute()
+    {
+        return Storage::url($this->image->path);;
     }
 
     public function relatedPosts($take = 3)

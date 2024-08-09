@@ -46,9 +46,9 @@ class SeoDetailResource extends Resource implements HasShieldPermissions
             ->striped()
             ->columns([
                 TextColumn::make('post.title')
-                    ->limit(20),
+                    ->limit(40),
                 TextColumn::make('title')
-                    ->limit(20)
+                    ->limit(40)
                     ->searchable(),
                 TextColumn::make('keywords')->badge()
                     ->searchable(),

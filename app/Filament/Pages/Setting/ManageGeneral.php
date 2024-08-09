@@ -29,14 +29,17 @@ class ManageGeneral extends SettingsPage
      */
     public ?array $data = [];
 
-    public string $themePath = '';
-
+    public string $cssPath = '';
     public string $twConfigPath = '';
+    public string $cssAdminPath = '';
+    public string $twAdminConfigPath = '';
 
     public function mount(): void
     {
-        $this->themePath = resource_path('css/filament/admin/theme.css');
-        $this->twConfigPath = resource_path('css/filament/admin/tailwind.config.js');
+        $this->cssPath = resource_path('css/app.css');
+        $this->twConfigPath = resource_path('css/tailwind.config.js');
+        $this->cssAdminPath = resource_path('css/admin.css');
+        $this->twAdminConfigPath = resource_path('css/tailwind.admin.js');
 
         $this->fillForm();
     }
@@ -49,9 +52,10 @@ class ManageGeneral extends SettingsPage
 
         $fileService = new FileService;
 
-        $data['theme-editor'] = $fileService->readfile($this->themePath);
-
+        $data['css-editor'] = $fileService->readfile($this->cssPath);
         $data['tw-config-editor'] = $fileService->readfile($this->twConfigPath);
+        $data['css-admin-editor'] = $fileService->readfile($this->cssAdminPath);
+        $data['tw-admin-config-editor'] = $fileService->readfile($this->twAdminConfigPath);
 
         $this->form->fill($data);
     }
@@ -66,34 +70,14 @@ class ManageGeneral extends SettingsPage
                     ->icon('fluentui-web-asset-24-o')
                     ->schema([
                         Forms\Components\Grid::make()->schema([
-                            Forms\Components\TextInput::make('brand_name')
-                                ->label(fn () => __('page.general_settings.fields.brand_name'))
+                            Forms\Components\TextInput::make('site_name')
+                                ->label(fn () => __('page.general_settings.fields.site_name'))
                                 ->required(),
-                            Forms\Components\Select::make('site_active')
-                                ->label(fn () => __('page.general_settings.fields.site_active'))
-                                ->options([
-                                    0 => "Not Active",
-                                    1 => "Active",
-                                ])
-                                ->native(false)
+                            Forms\Components\TextInput::make('site_description')
+                                ->label(fn () => __('page.general_settings.fields.site_description'))
                                 ->required(),
                         ]),
                         Forms\Components\Grid::make()->schema([
-                            Forms\Components\Grid::make()->schema([
-                                Forms\Components\TextInput::make('brand_logoHeight')
-                                    ->label(fn () => __('page.general_settings.fields.brand_logoHeight'))
-                                    ->required()
-                                    ->columnSpan(2),
-                                Forms\Components\FileUpload::make('brand_logo')
-                                    ->label(fn () => __('page.general_settings.fields.brand_logo'))
-                                    ->image()
-                                    ->directory('sites')
-                                    ->visibility('public')
-                                    ->moveFiles()
-                                    ->required()
-                                    ->columnSpan(2),
-                            ])
-                                ->columnSpan(2),
                             Forms\Components\FileUpload::make('site_favicon')
                                 ->label(fn () => __('page.general_settings.fields.site_favicon'))
                                 ->image()
@@ -102,37 +86,54 @@ class ManageGeneral extends SettingsPage
                                 ->moveFiles()
                                 ->acceptedFileTypes(['image/x-icon', 'image/vnd.microsoft.icon'])
                                 ->required(),
-                        ])->columns(4),
+                            Forms\Components\FileUpload::make('site_logo')
+                                ->label(fn () => __('page.general_settings.fields.site_logo'))
+                                ->image()
+                                ->directory('sites')
+                                ->visibility('public')
+                                ->moveFiles()
+                                ->required(),
+                        ]),
                     ]),
                 Forms\Components\Tabs::make('Tabs')
                     ->tabs([
                         Forms\Components\Tabs\Tab::make('Color Palette')
                             ->schema([
-                                Forms\Components\ColorPicker::make('site_theme.primary')
-                                    ->label(fn () => __('page.general_settings.fields.primary'))->rgb(),
-                                Forms\Components\ColorPicker::make('site_theme.secondary')
-                                    ->label(fn () => __('page.general_settings.fields.secondary'))->rgb(),
-                                Forms\Components\ColorPicker::make('site_theme.gray')
-                                    ->label(fn () => __('page.general_settings.fields.gray'))->rgb(),
-                                Forms\Components\ColorPicker::make('site_theme.success')
-                                    ->label(fn () => __('page.general_settings.fields.success'))->rgb(),
-                                Forms\Components\ColorPicker::make('site_theme.danger')
-                                    ->label(fn () => __('page.general_settings.fields.danger'))->rgb(),
-                                Forms\Components\ColorPicker::make('site_theme.info')
-                                    ->label(fn () => __('page.general_settings.fields.info'))->rgb(),
-                                Forms\Components\ColorPicker::make('site_theme.warning')
-                                    ->label(fn () => __('page.general_settings.fields.warning'))->rgb(),
+                                Forms\Components\ColorPicker::make('site_colors.primary')
+                                    ->label(fn () => __('page.general_settings.fields.site_colors.primary'))->rgb(),
+                                Forms\Components\ColorPicker::make('site_colors.secondary')
+                                    ->label(fn () => __('page.general_settings.fields.site_colors.secondary'))->rgb(),
+                                Forms\Components\ColorPicker::make('site_colors.gray')
+                                    ->label(fn () => __('page.general_settings.fields.site_colors.gray'))->rgb(),
+                                Forms\Components\ColorPicker::make('site_colors.success')
+                                    ->label(fn () => __('page.general_settings.fields.site_colors.success'))->rgb(),
+                                Forms\Components\ColorPicker::make('site_colors.danger')
+                                    ->label(fn () => __('page.general_settings.fields.site_colors.danger'))->rgb(),
+                                Forms\Components\ColorPicker::make('site_colors.info')
+                                    ->label(fn () => __('page.general_settings.fields.site_colors.info'))->rgb(),
+                                Forms\Components\ColorPicker::make('site_colors.warning')
+                                    ->label(fn () => __('page.general_settings.fields.site_colors.warning'))->rgb(),
                             ])
                             ->columns(3),
                         Forms\Components\Tabs\Tab::make('Code Editor')
                             ->schema([
                                 Forms\Components\Grid::make()->schema([
-                                    AceEditor::make('theme-editor')
-                                        ->label('theme.css')
+                                    AceEditor::make('css-editor')
+                                        ->label('app.css')
                                         ->mode('css')
                                         ->height('24rem'),
                                     AceEditor::make('tw-config-editor')
                                         ->label('tailwind.config.js')
+                                        ->height('24rem')
+                                ]),
+
+                                Forms\Components\Grid::make()->schema([
+                                    AceEditor::make('css-admin-editor')
+                                        ->label('admin.css')
+                                        ->mode('css')
+                                        ->height('24rem'),
+                                    AceEditor::make('tw-admin-config-editor')
+                                        ->label('tailwind.admin.js')
                                         ->height('24rem')
                                 ])
                             ]),
@@ -155,8 +156,10 @@ class ManageGeneral extends SettingsPage
             $settings->save();
 
             $fileService = new FileService;
-            $fileService->writeFile($this->themePath, $data['theme-editor']);
+            $fileService->writeFile($this->cssPath, $data['css-editor']);
             $fileService->writeFile($this->twConfigPath, $data['tw-config-editor']);
+            $fileService->writeFile($this->cssAdminPath, $data['css-admin-editor']);
+            $fileService->writeFile($this->twAdminConfigPath, $data['tw-admin-config-editor']);
 
             Notification::make()
                 ->title('Settings updated.')

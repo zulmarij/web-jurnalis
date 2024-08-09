@@ -15,6 +15,7 @@ class NewsLetter extends Model
      * @var array
      */
     protected $fillable = [
+        'name',
         'email',
         'subscribed',
     ];

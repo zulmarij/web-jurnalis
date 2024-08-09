@@ -1,30 +1,29 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
-    <head>
-        <meta charset="utf-8">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-        <meta name="application-name" content="{{ config('app.name') }}">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    {{ seo()->render() }}
 
-        <title>{{ config('app.name') }}</title>
+    @stack('head')
 
-        <style>
-            [x-cloak] {
-                display: none !important;
-            }
-        </style>
+    @livewireStyles
+    @vite('resources/css/app.css')
+</head>
 
-        @filamentStyles
-        @vite('resources/css/app.css')
-    </head>
+<body class="antialiased">
+    <div class="flex flex-col min-h-screen bg-white dark:bg-gray-900">
+        <x-navbar />
 
-    <body class="antialiased">
-        {{ $slot }}
+        <main class="grow">
+            {{ $slot }}
+        </main>
 
-        @livewire('notifications')
+        {{-- <x-footer /> --}}
+    </div>
 
-        @filamentScripts
-        @vite('resources/js/app.js')
-    </body>
+    @livewireScriptConfig
+    @stack('scripts')
+    @vite('resources/js/app.js')
+</body>
+
 </html>

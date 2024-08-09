@@ -60,9 +60,12 @@ class Comment extends Model
                 ->relationship('user')
                 ->getOptionLabelFromRecordUsing(fn (Model $record) => $record->name)
                 ->searchable(['firstname', 'lastname'])
+                ->preload()
                 ->required(),
             Select::make('post_id')
                 ->relationship('post', 'title')
+                ->searchable(['title'])
+                ->preload()
                 ->required(),
             Textarea::make('comment')
                 ->required()

@@ -80,21 +80,19 @@ class PostResource extends Resource implements HasShieldPermissions
         return $table
             ->deferLoading()
             ->columns([
+                CuratorColumn::make('image')
+                ->size(32),
 
                 TextColumn::make('title')
                     ->description(function (Post $record) {
                         return Str::limit($record->sub_title, 40);
                     })
-                    ->searchable()->limit(20),
+                    ->searchable()->limit(40),
                 TextColumn::make('status')
                     ->badge()
                     ->color(function ($state) {
                         return $state->getColor();
                     }),
-
-                CuratorColumn::make('image')
-                    ->circular()
-                    ->size(32),
 
                 UserAvatarName::make('user')
                     ->label('Author'),
