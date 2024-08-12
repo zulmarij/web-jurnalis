@@ -28,7 +28,7 @@ return [
     'glide' => [
         'server' => \Awcodes\Curator\Glide\DefaultServerFactory::class,
         'fallbacks' => [],
-        'route_path' => 'media',
+        // 'route_path' => 'curator',
     ],
     'image_crop_aspect_ratio' => null,
     'image_resize_mode' => null,
