@@ -23,12 +23,13 @@ return [
     'curation_presets' => [
         \Awcodes\Curator\Curations\ThumbnailPreset::class,
     ],
-    'directory' => null,
+    'directory' => 'media',
     'disk' => env('FILAMENT_FILESYSTEM_DISK', 'public'),
     'glide' => [
         'server' => \Awcodes\Curator\Glide\DefaultServerFactory::class,
         'fallbacks' => [],
         // 'route_path' => 'curator',
+        'route_path' => env('APP_URL'),
     ],
     'image_crop_aspect_ratio' => null,
     'image_resize_mode' => null,
