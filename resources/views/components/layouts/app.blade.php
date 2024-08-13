@@ -18,7 +18,7 @@
             {{ $slot }}
         </main>
 
-        {{-- <x-footer /> --}}
+        <x-footer />
     </div>
 
     @livewireScriptConfig
