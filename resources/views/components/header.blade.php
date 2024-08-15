@@ -6,7 +6,7 @@
 
 <header class="mb-16">
     <nav class="bg-white dark:bg-gray-800 fixed w-full z-40 top-0 start-0">
-        <div class="max-w-screen-xl p-4 mx-auto">
+        <div class="max-w-screen-xl px-4 py-2.5 mx-auto">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-8">
                     <div class="shrink-0">
