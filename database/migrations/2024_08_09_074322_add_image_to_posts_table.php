@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table
-                ->foreignId('image_id')
+                ->foreignId('media_id')
                 ->after('body')
                 ->nullable()
                 ->constrained('media')
@@ -27,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('image_id');
+            $table->dropConstrainedForeignId('media_id');
         });
     }
 };

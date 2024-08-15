@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -33,7 +34,7 @@ class Post extends Model implements Auditable
         'slug',
         'sub_title',
         'body',
-        'image_id',
+        'media_id',
         'status',
         'published_at',
         'scheduled_for',
@@ -75,9 +76,9 @@ class Post extends Model implements Auditable
         return $this->hasOne(SeoDetail::class);
     }
 
-    public function image(): BelongsTo
+    public function media(): BelongsTo
     {
-        return $this->belongsTo(Media::class);
+        return $this->belongsTo(Media::class, 'media_id', 'id');
     }
 
     public function isNotPublished()
@@ -115,9 +116,9 @@ class Post extends Model implements Auditable
         return $this->status === PostStatus::PUBLISHED;
     }
 
-    protected function getImageUrlAttribute()
+    protected function getMediaUrlAttribute()
     {
-        return Storage::url($this->image->path);;
+        return Storage::url($this->media->path);;
     }
 
     public function relatedPosts($take = 3)
@@ -127,6 +128,15 @@ class Post extends Model implements Auditable
                 ->whereNotIn('posts.id', [$this->id]);
         })->published()->with('user')->take($take)->get();
     }
+    public function getReadTimeAttribute()
+    {
+        $wordCount = str_word_count(strip_tags(tiptap_converter()->asText($this->body)));
+        $wordsPerMinute = 200;
+        $readTime = ceil($wordCount / $wordsPerMinute);
+
+        return $readTime;
+    }
+
 
     public static function getForm()
     {
@@ -167,8 +177,8 @@ class Post extends Model implements Auditable
                 ->required()
                 ->columnSpanFull(),
 
-            CuratorPicker::make('image_id')
-                ->label('Featured Image'),
+            CuratorPicker::make('media_id')
+                ->label('Media'),
 
             Fieldset::make()
                 ->schema([

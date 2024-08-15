@@ -80,7 +80,7 @@ class PostResource extends Resource implements HasShieldPermissions
         return $table
             ->deferLoading()
             ->columns([
-                CuratorColumn::make('image')
+                CuratorColumn::make('media')
                 ->size(32),
 
                 TextColumn::make('title')

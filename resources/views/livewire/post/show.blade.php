@@ -51,7 +51,9 @@
             </div>
         </header>
 
-        {!! $post->body !!}
+        <x-media-display :post="$post" class="mb-4" />
+
+        {!! tiptap_converter()->asHtml($post->body) !!}
 
         <section class="not-format" id="comments">
             <div class="mb-6">
@@ -323,11 +325,11 @@
             @foreach ($latestPosts as $post)
                 <div class="flex items-center py-4">
                     <a href="/{{ $post->slug }}" wire:navigate class="shrink-0">
-                        <img src="{{ $post->image_url }}" class="mr-4 w-12 max-w-full h-12 rounded-lg"
-                            alt="{{ $post->title }}">
+                        <x-media-display :post="$post" class="h-14  mr-4" :showControls="false" />
                     </a>
                     <a href="/{{ $post->slug }}" wire:navigate>
-                        <h5 class="font-semibold leading-tight text-gray-900 dark:text-white hover:underline">
+                        <h5
+                            class="font-semibold leading-tight text-gray-900 dark:text-white hover:underline line-clamp-3">
                             {{ $post->title }}
                         </h5>
                     </a>

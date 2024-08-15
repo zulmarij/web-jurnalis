@@ -1,63 +1,55 @@
 <section class="max-w-screen-xl p-4 mx-auto">
-    <div class="grid mb-6 gap-8 lg:divide-x lg:divide-gray-200 dark:lg:divide-gray-700 lg:grid-cols-3">
-        <x-card-post :post="$featuredPosts[0]" :displayReadMore="false" />
-
-        <div class="space-y-8 lg:pl-8">
-            @foreach ($featuredPosts->slice(1, 2) as $post)
-                <x-card-post :post="$post" :displayImage="false" />
-            @endforeach
-        </div>
-
-        <div class="space-y-8 lg:pl-8">
-            @foreach ($featuredPosts->slice(3, 2) as $post)
-                <x-card-post :post="$post" :displayImage="false" />
-            @endforeach
-        </div>
-    </div>
-
-    <div class="mb-16">
-        {{-- <h2 class="mb-6 lg:mb-8 text-2xl font-bold text-gray-900 dark:text-white">News</h2> --}}
-        <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-            @foreach ($posts as $post)
-                <x-card-post-1 :post="$post" />
-            @endforeach
-        </div>
-    </div>
-
-    <div class="mb-16">
-        <h2 class="mb-6 lg:mb-8 text-2xl font-bold text-gray-900 dark:text-white">News</h2>
-        <div class="grid gap-6 lg:gap-12 md:grid-cols-2">
-            @foreach ($posts as $post)
-                <x-card-post-2 :post="$post" />
-            @endforeach
-        </div>
-    </div>
-
-    <div class="mb-16">
-        <h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Trending</h2>
-        <div id="animation-carousel" data-carousel="slide">
-            <div class="relative overflow-hidden rounded-lg h-[460px]">
-                @php
-                    $chunks = $carouselPosts->chunk(3);
-                @endphp
-                @foreach ($chunks as $chunk)
-                    <div class="hidden bg-white duration-700 ease-in-out dark:bg-gray-900" data-carousel-item>
-                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                            @foreach ($chunk as $index => $post)
-                                @php
-                                    $class = '';
-                                    if ($index === 1) {
-                                        $class = 'hidden sm:block';
-                                    } elseif ($index === 2) {
-                                        $class = 'hidden xl:block';
-                                    }
-                                @endphp
-                                <x-card-post-3 :post="$post" :class="$class" />
-                            @endforeach
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        @foreach ($this->posts as $key => $post)
+            <article
+                class="p-4 bg-white rounded-lg border
+                border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+                wire:key="post-{{ $key }}">
+                <a href="/{{ $post->slug }}" wire:navigate>
+                    <x-media-display :post="$post" class="mb-5" />
+                </a>
+                @foreach ($post->categories as $category)
+                    <a href="#">
+                        <span
+                            class="bg-purple-100 text-purple-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-900">
+                            {{ $category->name }}</span>
+                    </a>
+                @endforeach
+                <h2 class="my-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
+                    <a href="/{{ $post->slug }}" wire:navigate>{!! $post->title !!}</a>
+                </h2>
+                <p class="mb-4 font-light text-gray-500 dark:text-gray-400 line-clamp-3">
+                    {!! tiptap_converter()->asText($post->body) !!}
+                </p>
+                <div class="flex items-center space-x-4">
+                    <img class="w-10 h-10 rounded-full" src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}">
+                    <div class="font-medium dark:text-white">
+                        <div>{{ $post->user->name }}</div>
+                        <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                            {{ $post->published_at?->format('d M Y') }} · {{ $post->read_time }} min read
                         </div>
                     </div>
-                @endforeach
-            </div>
-        </div>
+                </div>
+            </article>
+        @endforeach
     </div>
+
+    @if ($this->hasMore())
+        <div class="flex justify-center mt-8">
+            <button wire:click="loadMore"
+                class="inline-flex items-center px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-600"
+                wire:loading.attr="disabled">
+                <span wire:loading>
+                    Loading...
+                </span>
+                <span wire:loading.remove>
+                    Load More
+                </span>
+
+            </button>
+        </div>
+    @endif
+    {{-- @if ($this->hasMore())
+            <div class="self-center loading loading-spinner" x-intersect="$wire.loadMore()"></div>
+        @endif --}}
 </section>

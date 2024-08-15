@@ -1,12 +1,21 @@
 <?php
 
 return [
-    'accepted_file_types' => [
+   'accepted_file_types' => [
         'image/jpeg',
         'image/png',
         'image/webp',
         'image/svg+xml',
         'application/pdf',
+        'video/mp4',    // Format video MP4
+        'video/avi',    // Format video AVI
+        'video/mkv',    // Format video MKV
+        'video/webm',   // Format video WebM
+        'video/ogg',    // Format video OGG
+        'video/quicktime', // Format video MOV
+        'video/x-msvideo', // Format video AVI (alternatif)
+        'video/x-matroska', // Format video MKV (alternatif)
+        // Tambahkan format video lainnya jika diperlukan
     ],
     'cloud_disks' => [
         's3',
