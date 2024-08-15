@@ -12,7 +12,7 @@
 
 <body class="antialiased">
     <div class="flex flex-col min-h-screen bg-white dark:bg-gray-900">
-        <x-navbar />
+        <x-header />
 
         <main class="grow">
             {{ $slot }}
