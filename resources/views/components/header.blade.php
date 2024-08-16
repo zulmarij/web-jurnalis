@@ -19,19 +19,31 @@
                         <li>
                             <a href="#" title=""
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Finance
+                                Berita
                             </a>
                         </li>
                         <li class="shrink-0">
                             <a href="#" title=""
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Sport
+                                Edukasi
                             </a>
                         </li>
                         <li class="shrink-0">
                             <a href="#" title=""
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Special Program
+                                Inspirasi
+                            </a>
+                        </li>
+                        <li class="shrink-0">
+                            <a href="#" title=""
+                                class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                                Inovasi
+                            </a>
+                        </li>
+                        <li class="shrink-0">
+                            <a href="#" title=""
+                                class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                                Hiburan
                             </a>
                         </li>
                     </ul>
@@ -88,13 +100,19 @@
                 class="bg-gray-50 dark:bg-gray-700 dark:border-gray-600 border border-gray-200 rounded-lg py-3 hidden px-4 mt-4">
                 <ul class="text-gray-900 dark:text-white  font-medium space-y-3">
                     <li>
-                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Finance</a>
+                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Berita</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Sport</a>
+                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Edukasi</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Special Program</a>
+                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Inspirasi</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Inovasi</a>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Hiburan</a>
                     </li>
                 </ul>
             </div>
