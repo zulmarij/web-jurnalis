@@ -50,36 +50,51 @@
                 </div>
 
                 <div class="flex items-center lg:space-x-2">
-                    <button id="userDropdownButton1" data-dropdown-toggle="userDropdown1" type="button"
-                        class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium leading-none text-gray-900 dark:text-white">
-                        <svg class="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                            height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-width="2"
-                                d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        </svg>
-                        Account
-                        <svg class="w-4 h-4 text-gray-900 dark:text-white ms-1" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                            viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m19 9-7 7-7-7" />
-                        </svg>
-                    </button>
+                    @auth
+                        <button id="userDropdownButton1" data-dropdown-toggle="userDropdown1" type="button"
+                            class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium leading-none text-gray-900 dark:text-white">
+                            <svg class="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-width="2"
+                                    d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            </svg>
+                            Account
+                            <svg class="w-4 h-4 text-gray-900 dark:text-white ms-1" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m19 9-7 7-7-7" />
+                            </svg>
+                        </button>
 
-                    <div id="userDropdown1"
-                        class="hidden z-10 w-56 divide-y divide-gray-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-gray-600 dark:bg-gray-700">
-                        <ul class="p-2 text-start  font-medium text-gray-900 dark:text-white">
-                            <li><a href="#" title=""
+                        <div id="userDropdown1"
+                            class="hidden z-10 w-56 divide-y divide-gray-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-gray-600 dark:bg-gray-700">
+                            <ul class="p-2 text-start  font-medium text-gray-900 dark:text-white">
+                                <li><a href="#" title=""
+                                        class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2  hover:bg-gray-100 dark:hover:bg-gray-600">
+                                        My Account </a></li>
+                            </ul>
+
+                            <div class="p-2  font-medium text-gray-900 dark:text-white">
+                                <a href="{{ route('filament.admin.auth.logout') }}" title=""
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                     class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2  hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    My Account </a></li>
-                        </ul>
+                                    Sign Out </a>
 
-                        <div class="p-2  font-medium text-gray-900 dark:text-white">
-                            <a href="#" title=""
-                                class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2  hover:bg-gray-100 dark:hover:bg-gray-600">
-                                Sign Out </a>
+                                <form id="logout-form" action="{{ route('filament.admin.auth.logout') }}" method="POST" class="hidden">
+                                    @csrf
+                                </form>
+                            </div>
                         </div>
-                    </div>
+
+                    @endauth
+
+                    @guest
+                        <a href="{{ route('filament.admin.auth.login') }}" type="button"
+                            class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium leading-none text-gray-900 dark:text-white">
+                            Login
+                        </a>
+                    @endguest
 
                     <button type="button" data-collapse-toggle="navbar-menu-1" aria-controls="navbar-menu-1"
                         aria-expanded="false"
