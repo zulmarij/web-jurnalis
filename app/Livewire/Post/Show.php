@@ -5,37 +5,50 @@ namespace App\Livewire\Post;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Settings\GeneralSettings;
+use Artesaos\SEOTools\Facades\JsonLd;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\SEOMeta;
 use Livewire\Component;
-use Spatie\SchemaOrg\Schema;
-use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
+
 
 class Show extends Component
 {
 
-    public $slug;
+    public  $slug;
+    public  $post;
+    public  $latestPosts;
+    public  $latestComments;
 
-    public function render()
+    public function mount(): void
     {
-        $generalSettings = app(GeneralSettings::class);
-        $post = Post::with(['comments' => fn ($query) => $query->approved()])->whereSlug($this->slug)->firstOrFail();;
+        $this->post = Post::whereSlug($this->slug)->firstOrFail();
+        $this->latestPosts = Post::published()->take(5)->get();
+        $this->latestComments = Comment::approved()->take(5)->get();
 
-        seo()
-            ->title($generalSettings->site_name . ' - ' . ($post->seoDetail?->title ?? $post->title))
-            ->description($post->seoDetail->description ?? Str::limit($post->body, 160))
-            ->canonical(route('post.show', ['slug' => $this->slug]))
-            ->addSchema( 
-                Schema::article()
-                    ->headline($post->seoDetail->title ?? $post->title)
-                    ->articleBody($post->seoDetail->description ?? Str::limit($post->body, 160))
-                    ->image($post->imageUrl)
-                    ->datePublished($post->published_at)
-                    ->dateModified($post->updated_at)
-                    ->author(Schema::person()->name($post->user->name))
-            );
+        $tags =  $this->post->tags->pluck('name');
+        $categories = $this->post->categories->pluck('name');
+        $keywords = $tags->merge($categories);
 
-        $latestPosts = Post::published()->take(5)->get();
-        $recentComments = Comment::approved()->take(4)->get();
+        $settings = app(GeneralSettings::class);
 
-        return view('livewire.post.show', compact((['post', 'latestPosts', 'recentComments'])));
+        SEOMeta::setTitle($this->post->title . ' - ' . $settings->site_name, false);
+        SEOMeta::setDescription($this->post->excerpt());
+        SEOMeta::addMeta('article:published_time', $this->post->published_at->toW3CString(), $this->post->categories->first()->name);
+        SEOMeta::addMeta('article:section', $this->post->categories->first()->name, $this->post->categories->first()->name);
+        SEOMeta::addKeyword($keywords->unique());
+
+        OpenGraph::setDescription($this->post->excerpt());
+        OpenGraph::setTitle($this->post->title);
+        OpenGraph::setUrl(route('post.show', ['slug' => $this->slug]));
+        OpenGraph::addProperty('type', 'article');
+        OpenGraph::addProperty('locale', 'id');
+        OpenGraph::addProperty('locale:alternate', ['en']);
+        OpenGraph::addImage($this->post->imageUrl);
+
+        JsonLd::setTitle($this->post->title);
+        JsonLd::setDescription($this->post->excerpt());
+        JsonLd::setType('Article');
+        JsonLd::addImage($this->post->imageUrl);
     }
 }

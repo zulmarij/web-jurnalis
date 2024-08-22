@@ -1,8 +1,22 @@
+@php
+    $settings = app(\App\Settings\GeneralSettings::class);
+@endphp
+
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    {{ seo()->render() }}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('storage/' . $settings->site_favicon) }}" type="image/x-icon">
+
+    {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
+    {!! Twitter::generate() !!}
+    {!! JsonLd::generate() !!}
 
     @stack('head')
 

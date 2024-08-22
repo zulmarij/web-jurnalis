@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web([
-            App\Http\Middleware\AddSeoDefaults::class,
+            // \App\Http\Middleware\DefaultSeo::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -101,11 +100,6 @@ class Post extends Model implements Auditable
         return $query->where('status', PostStatus::PENDING)->latest('created_at');
     }
 
-    public function formattedPublishedDate()
-    {
-        return $this->published_at?->format('d M Y');
-    }
-
     public function isScheduled()
     {
         return $this->status === PostStatus::SCHEDULED;
@@ -121,13 +115,13 @@ class Post extends Model implements Auditable
         return Storage::url($this->media->path);;
     }
 
-    public function relatedPosts($take = 3)
+    public function excerpt($length = 150)
     {
-        return $this->whereHas('categories', function ($query) {
-            $query->whereIn('categories.id', $this->categories->pluck('id'))
-                ->whereNotIn('posts.id', [$this->id]);
-        })->published()->with('user')->take($take)->get();
+        $content = tiptap_converter()->asText($this->attributes['body']);
+
+        return substr($content, 0, $length);
     }
+
     public function getReadTimeAttribute()
     {
         $wordCount = str_word_count(strip_tags(tiptap_converter()->asText($this->body)));
@@ -137,13 +131,12 @@ class Post extends Model implements Auditable
         return $readTime;
     }
 
-
     public static function getForm()
     {
         return [
             TextInput::make('title')
                 ->live(true)
-                ->afterStateUpdated(fn (Set $set, ?string $state) => $set(
+                ->afterStateUpdated(fn(Set $set, ?string $state) => $set(
                     'slug',
                     Str::slug($state)
                 ))
@@ -200,7 +193,7 @@ class Post extends Model implements Auditable
 
             Select::make('user_id')
                 ->relationship('user')
-                ->getOptionLabelFromRecordUsing(fn (Model $record) => $record->name)
+                ->getOptionLabelFromRecordUsing(fn(Model $record) => $record->name)
                 ->searchable(['firstname', 'lastname'])
                 ->required()
                 ->default(auth()->id())

@@ -29,17 +29,17 @@ class ManageGeneral extends SettingsPage
      */
     public ?array $data = [];
 
-    public string $cssPath = '';
-    public string $twConfigPath = '';
-    public string $cssAdminPath = '';
-    public string $twAdminConfigPath = '';
+    // public string $cssPath = '';
+    // public string $twConfigPath = '';
+    // public string $cssAdminPath = '';
+    // public string $twAdminConfigPath = '';
 
     public function mount(): void
     {
-        $this->cssPath = resource_path('css/app.css');
-        $this->twConfigPath = resource_path('css/tailwind.config.js');
-        $this->cssAdminPath = resource_path('css/admin.css');
-        $this->twAdminConfigPath = resource_path('css/tailwind.admin.js');
+        // $this->cssPath = resource_path('css/app.css');
+        // $this->twConfigPath = resource_path('css/tailwind.config.js');
+        // $this->cssAdminPath = resource_path('css/admin.css');
+        // $this->twAdminConfigPath = resource_path('css/tailwind.admin.js');
 
         $this->fillForm();
     }
@@ -50,12 +50,12 @@ class ManageGeneral extends SettingsPage
 
         $data = $this->mutateFormDataBeforeFill($settings->toArray());
 
-        $fileService = new FileService;
+        // $fileService = new FileService;
 
-        $data['css-editor'] = $fileService->readfile($this->cssPath);
-        $data['tw-config-editor'] = $fileService->readfile($this->twConfigPath);
-        $data['css-admin-editor'] = $fileService->readfile($this->cssAdminPath);
-        $data['tw-admin-config-editor'] = $fileService->readfile($this->twAdminConfigPath);
+        // $data['css-editor'] = $fileService->readfile($this->cssPath);
+        // $data['tw-config-editor'] = $fileService->readfile($this->twConfigPath);
+        // $data['css-admin-editor'] = $fileService->readfile($this->cssAdminPath);
+        // $data['tw-admin-config-editor'] = $fileService->readfile($this->twAdminConfigPath);
 
         $this->form->fill($data);
     }
@@ -81,7 +81,7 @@ class ManageGeneral extends SettingsPage
                             Forms\Components\FileUpload::make('site_favicon')
                                 ->label(fn () => __('page.general_settings.fields.site_favicon'))
                                 ->image()
-                                ->directory('sites')
+                                ->directory('sites/favicon')
                                 ->visibility('public')
                                 ->moveFiles()
                                 ->acceptedFileTypes(['image/x-icon', 'image/vnd.microsoft.icon'])
@@ -89,7 +89,7 @@ class ManageGeneral extends SettingsPage
                             Forms\Components\FileUpload::make('site_logo')
                                 ->label(fn () => __('page.general_settings.fields.site_logo'))
                                 ->image()
-                                ->directory('sites')
+                                ->directory('sites/logo')
                                 ->visibility('public')
                                 ->moveFiles()
                                 ->required(),
@@ -115,28 +115,28 @@ class ManageGeneral extends SettingsPage
                                     ->label(fn () => __('page.general_settings.fields.site_colors.warning'))->rgb(),
                             ])
                             ->columns(3),
-                        Forms\Components\Tabs\Tab::make('Code Editor')
-                            ->schema([
-                                Forms\Components\Grid::make()->schema([
-                                    AceEditor::make('css-editor')
-                                        ->label('app.css')
-                                        ->mode('css')
-                                        ->height('24rem'),
-                                    AceEditor::make('tw-config-editor')
-                                        ->label('tailwind.config.js')
-                                        ->height('24rem')
-                                ]),
+                        // Forms\Components\Tabs\Tab::make('Code Editor')
+                        //     ->schema([
+                        //         Forms\Components\Grid::make()->schema([
+                        //             AceEditor::make('css-editor')
+                        //                 ->label('app.css')
+                        //                 ->mode('css')
+                        //                 ->height('24rem'),
+                        //             AceEditor::make('tw-config-editor')
+                        //                 ->label('tailwind.config.js')
+                        //                 ->height('24rem')
+                        //         ]),
 
-                                Forms\Components\Grid::make()->schema([
-                                    AceEditor::make('css-admin-editor')
-                                        ->label('admin.css')
-                                        ->mode('css')
-                                        ->height('24rem'),
-                                    AceEditor::make('tw-admin-config-editor')
-                                        ->label('tailwind.admin.js')
-                                        ->height('24rem')
-                                ])
-                            ]),
+                        //         Forms\Components\Grid::make()->schema([
+                        //             AceEditor::make('css-admin-editor')
+                        //                 ->label('admin.css')
+                        //                 ->mode('css')
+                        //                 ->height('24rem'),
+                        //             AceEditor::make('tw-admin-config-editor')
+                        //                 ->label('tailwind.admin.js')
+                        //                 ->height('24rem')
+                        //         ])
+                        //     ]),
                     ])
                     ->persistTabInQueryString()
                     ->columnSpanFull(),
@@ -155,11 +155,11 @@ class ManageGeneral extends SettingsPage
             $settings->fill($data);
             $settings->save();
 
-            $fileService = new FileService;
-            $fileService->writeFile($this->cssPath, $data['css-editor']);
-            $fileService->writeFile($this->twConfigPath, $data['tw-config-editor']);
-            $fileService->writeFile($this->cssAdminPath, $data['css-admin-editor']);
-            $fileService->writeFile($this->twAdminConfigPath, $data['tw-admin-config-editor']);
+            // $fileService = new FileService;
+            // $fileService->writeFile($this->cssPath, $data['css-editor']);
+            // $fileService->writeFile($this->twConfigPath, $data['tw-config-editor']);
+            // $fileService->writeFile($this->cssAdminPath, $data['css-admin-editor']);
+            // $fileService->writeFile($this->twAdminConfigPath, $data['tw-admin-config-editor']);
 
             Notification::make()
                 ->title('Settings updated.')

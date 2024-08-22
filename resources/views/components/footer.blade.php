@@ -5,15 +5,13 @@
     $siteDescription = $settings->site_description;
 @endphp
 
-<footer class="p-4 bg-white sm:p-6 dark:bg-gray-800">
+<footer class="p-4 bg-white sm:p-6 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-600">
     <div class="mx-auto max-w-screen-xl">
-        <div class="mb-6">
+        {{-- <div class="mb-6">
             <a href="/" wire:navigate class="flex items-center">
-                <img src="{{ asset('storage/' . $siteLogo) }}" class="mr-3 h-8" alt="{{ $siteName }}" />
-                <span
-                    class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ $siteName }}</span>
+                <img src="{{ asset('storage/' . $siteLogo) }}" class="mr-3 h-24" alt="{{ $siteName }}" />
             </a>
-        </div>
+        </div> --}}
         <div class="md:flex md:justify-between">
             {{-- <div class="mb-6 md:mb-0">
                 <a href="/" wire:navigate class="flex items-center">

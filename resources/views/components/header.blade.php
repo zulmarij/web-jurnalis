@@ -5,13 +5,13 @@
 @endphp
 
 <header class="mb-16">
-    <nav class="bg-white dark:bg-gray-800 fixed w-full z-40 top-0 start-0">
-        <div class="max-w-screen-xl px-4 py-2.5 mx-auto">
+    <nav class="bg-white dark:bg-gray-800 fixed w-full z-40 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+        <div class="max-w-screen-xl px-4 mx-auto">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-8">
                     <div class="shrink-0">
                         <a href="/" wire:navigate title="{{ $siteName }}" class="">
-                            <img class="block w-auto h-8"
+                            <img class="block w-auto h-16"
                                 src="{{ asset('storage/' . $siteLogo) }}"alt="{{ $siteName }}">
                         </a>
                     </div>
@@ -70,9 +70,12 @@
                         <div id="userDropdown1"
                             class="hidden z-10 w-56 divide-y divide-gray-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-gray-600 dark:bg-gray-700">
                             <ul class="p-2 text-start  font-medium text-gray-900 dark:text-white">
-                                <li><a href="#" title=""
+                                <li>
+                                    <a href="/admin" wire:navigate
                                         class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2  hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        My Account </a></li>
+                                        Dashboard
+                                    </a>
+                                </li>
                             </ul>
 
                             <div class="p-2  font-medium text-gray-900 dark:text-white">
@@ -81,7 +84,8 @@
                                     class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2  hover:bg-gray-100 dark:hover:bg-gray-600">
                                     Sign Out </a>
 
-                                <form id="logout-form" action="{{ route('filament.admin.auth.logout') }}" method="POST" class="hidden">
+                                <form id="logout-form" action="{{ route('filament.admin.auth.logout') }}" method="POST"
+                                    class="hidden">
                                     @csrf
                                 </form>
                             </div>

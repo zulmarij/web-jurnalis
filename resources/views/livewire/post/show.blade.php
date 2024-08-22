@@ -2,9 +2,9 @@
     <article
         class="w-full max-w-none xl:w-[828px] format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
         <header class="mb-4 lg:mb-6 not-format">
-            {{ Breadcrumbs::render('post', $post) }}
+            {{ Breadcrumbs::render('post', $this->post) }}
             <div class="flex items-center my-4 md:my-6">
-                @foreach ($post->tags as $tag)
+                @foreach ($this->post->tags as $tag)
                     <a href="#"
                         class="bg-primary-100 dark:hover:bg-primary-300 text-primary-800 text-sm font-medium mr-3 px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800 hover:bg-primary-200">
                         {{ $tag->name }}
@@ -12,7 +12,7 @@
                 @endforeach
             </div>
             <h1 class="mb-4 text-2xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
-                {{ $post->title }}
+                {{ $this->post->title }}
             </h1>
             <div class="flex justify-between items-center py-4 border-t border-b border-gray-200 dark:border-gray-700">
                 <div class="mr-4 text-sm">
@@ -20,20 +20,20 @@
                         By
                         <a rel="author" class="text-gray-900 no-underline dark:text-white hover:underline"
                             href="#">
-                            {{ $post->user->name }}
+                            {{ $this->post->user->name }}
                         </a>
                     </address>
                     in
-                    @foreach ($post->categories as $category)
+                    @foreach ($this->post->categories as $category)
                         <a href="#" class="text-gray-900 no-underline dark:text-white hover:underline">
                             {{ $category->name }}
                         </a>
                     @endforeach
                     <span>
                         on
-                        <time pubdate class="uppercase" datetime="{{ $post->published_at?->format('Y-m-d') }}"
-                            title="{{ $post->published_at?->format('d M Y') }}">
-                            {{ $post->published_at?->format('d M Y') }}
+                        <time pubdate class="uppercase" datetime="{{ $this->post->published_at?->format('Y-m-d') }}"
+                            title="{{ $this->post->published_at?->format('d M Y') }}">
+                            {{ $this->post->published_at?->format('d M Y') }}
                         </time>
                     </span>
                 </div>
@@ -46,14 +46,14 @@
                             clip-rule="evenodd">
                         </path>
                     </svg>
-                    {{ $post->comments->count() }} Comments
+                    {{ $this->post->comments->count() }} Comments
                 </a>
             </div>
         </header>
 
-        <x-media-display :post="$post" class="mb-4" />
+        <x-media-display :post="$this->post" class="mb-4" />
 
-        {!! tiptap_converter()->asHtml($post->body) !!}
+        {!! tiptap_converter()->asHtml($this->post->body) !!}
 
         <section class="not-format" id="comments">
             <div class="mb-6">
@@ -322,7 +322,7 @@
         <div
             class="p-5 mb-6 font-medium text-gray-500 bg-white rounded-lg border border-gray-200 divide-y divide-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:divide-gray-700">
             <h4 class="mb-4 text-sm font-bold text-gray-900 uppercase dark:text-white">Latest news</h4>
-            @foreach ($latestPosts as $post)
+            @foreach ($this->latestPosts as $post)
                 <div class="flex items-center py-4">
                     <a href="/{{ $post->slug }}" wire:navigate class="shrink-0">
                         <x-media-display :post="$post" class="h-14  mr-4" :showControls="false" />
@@ -378,7 +378,7 @@
         <div
             class="p-5 mb-6 font-medium text-gray-500 bg-white rounded-lg border border-gray-200 divide-y divide-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:divide-gray-700">
             <h4 class="mb-4 text-sm font-bold text-gray-900 uppercase dark:text-white">Recent comments</h4>
-            @foreach ($recentComments as $comment)
+            @foreach ($this->latestComments as $comment)
                 <div class="py-4">
                     <p class="font-light text-gray-500 dark:text-gray-400">{{ $comment->user->name }}
                         on

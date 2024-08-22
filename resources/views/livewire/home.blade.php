@@ -19,7 +19,7 @@
                     <a href="/{{ $post->slug }}" wire:navigate>{!! $post->title !!}</a>
                 </h2>
                 <p class="mb-4 font-light text-gray-500 dark:text-gray-400 line-clamp-3">
-                    {!! tiptap_converter()->asText($post->body) !!}
+                    {!! $post->excerpt() !!}
                 </p>
                 <div class="flex items-center space-x-4">
                     <img class="w-10 h-10 rounded-full" src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}">

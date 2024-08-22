@@ -11,6 +11,7 @@ use Awcodes\Curator\CuratorPlugin;
 use BezhanSalleh\FilamentExceptions\FilamentExceptionsPlugin;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Croustibat\FilamentJobsMonitor\FilamentJobsMonitorPlugin;
+use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -44,8 +45,10 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(fn (GeneralSettings $settings) => Storage::url($settings->site_favicon))
             ->brandName(fn (GeneralSettings $settings) => $settings->site_name)
             ->brandLogo(fn (GeneralSettings $settings) => Storage::url($settings->site_logo))
-            // ->brandLogoHeight(fn (GeneralSettings $settings) => $settings->brand_logoHeight)
+            ->brandLogoHeight('4rem')
             ->colors(fn (GeneralSettings $settings) => $settings->site_colors)
+            ->darkMode(false)
+            ->defaultThemeMode(ThemeMode::Light)
             ->databaseNotifications()->databaseNotificationsPolling('30s')
             ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             ->viteTheme('resources/css/admin.css')
