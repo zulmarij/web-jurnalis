@@ -31,7 +31,11 @@ module.exports = {
                 xs: "475px",
                 ...defaultTheme.screens,
             },
+            aspectRatio: {
+                none: "none",
+                ...defaultTheme.aspectRatio
+            },
         },
     },
-    plugins: [require("flowbite/plugin"), require("flowbite-typography"), require('@tailwindcss/aspect-ratio'),],
+    plugins: [require("flowbite/plugin"), require("flowbite-typography")],
 };
