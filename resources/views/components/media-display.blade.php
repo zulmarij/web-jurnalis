@@ -1,6 +1,6 @@
-@props(['post', 'showControls' => true, 'imageClass' => ''])
+@props(['post', 'showControls' => true, 'imageClass' => '', 'aspectClass' => 'aspect-video'])
 
-<div {{ $attributes->merge(['class' => 'aspect-video']) }}>
+<div {{ $attributes->merge(['class' => $aspectClass]) }}>
     @php
         $mediaType = $post->media->type;
     @endphp

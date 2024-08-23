@@ -31,10 +31,6 @@ module.exports = {
                 xs: "475px",
                 ...defaultTheme.screens,
             },
-            aspectRatio: {
-                none: "none",
-                ...defaultTheme.aspectRatio
-            },
         },
     },
     plugins: [require("flowbite/plugin"), require("flowbite-typography")],
