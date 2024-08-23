@@ -10,38 +10,38 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-8">
                     <div class="shrink-0">
-                        <a href="/" wire:navigate title="{{ $siteName }}" class="">
-                            <img class="block w-auto h-16"
-                                src="{{ asset('storage/' . $siteLogo) }}"alt="{{ $siteName }}">
+                        <a href="{{ route('home') }}" title="{{ $siteName }}">
+                            <img class="block w-auto h-16" src="{{ asset('storage/' . $siteLogo) }}"
+                                alt="{{ $siteName }}">
                         </a>
                     </div>
                     <ul class="hidden lg:flex items-center justify-start gap-6 md:gap-8 py-3 sm:justify-center">
                         <li>
-                            <a href="#" title=""
+                            <a href="{{ route('posts-by-category', ['slug' => 'berita']) }}" title="Berita"
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
                                 Berita
                             </a>
                         </li>
                         <li class="shrink-0">
-                            <a href="#" title=""
+                            <a href="{{ route('posts-by-category', ['slug' => 'edukasi']) }}" title="Edukasi"
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
                                 Edukasi
                             </a>
                         </li>
                         <li class="shrink-0">
-                            <a href="#" title=""
+                            <a href="{{ route('posts-by-category', ['slug' => 'inspirasi']) }}" title="Inpirasi"
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
                                 Inspirasi
                             </a>
                         </li>
                         <li class="shrink-0">
-                            <a href="#" title=""
+                            <a href="{{ route('posts-by-category', ['slug' => 'inovasi']) }}" title="Inovasi"
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
                                 Inovasi
                             </a>
                         </li>
                         <li class="shrink-0">
-                            <a href="#" title=""
+                            <a href="{{ route('posts-by-category', ['slug' => 'hiburan']) }}" title="Hiburan"
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
                                 Hiburan
                             </a>
@@ -71,7 +71,7 @@
                             class="hidden z-10 w-56 divide-y divide-gray-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-gray-600 dark:bg-gray-700">
                             <ul class="p-2 text-start  font-medium text-gray-900 dark:text-white">
                                 <li>
-                                    <a href="/admin" wire:navigate
+                                    <a href="{{ route('filament.admin.pages.dashboard') }}"
                                         class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2  hover:bg-gray-100 dark:hover:bg-gray-600">
                                         Dashboard
                                     </a>
@@ -119,19 +119,24 @@
                 class="bg-gray-50 dark:bg-gray-700 dark:border-gray-600 border border-gray-200 rounded-lg py-3 hidden px-4 mt-4">
                 <ul class="text-gray-900 dark:text-white  font-medium space-y-3">
                     <li>
-                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Berita</a>
+                        <a hhref="{{ route('posts-by-category', ['slug' => 'berita']) }}" title="Berita"
+                            class="hover:text-primary-700 dark:hover:text-primary-500">Berita</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Edukasi</a>
+                        <a href="{{ route('posts-by-category', ['slug' => 'edukasi']) }}" title="Edukasi"
+                            class="hover:text-primary-700 dark:hover:text-primary-500">Edukasi</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Inspirasi</a>
+                        <a href="{{ route('posts-by-category', ['slug' => 'inspirasi']) }}" title="Inspirasi"
+                            class="hover:text-primary-700 dark:hover:text-primary-500">Inspirasi</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Inovasi</a>
+                        <a href="{{ route('posts-by-category', ['slug' => 'inovasi']) }}" title="Inovasi"
+                            class="hover:text-primary-700 dark:hover:text-primary-500">Inovasi</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Hiburan</a>
+                        <a href="{{ route('posts-by-category', ['slug' => 'hiburan']) }}" title="Hiburan"
+                            class="hover:text-primary-700 dark:hover:text-primary-500">Hiburan</a>
                     </li>
                 </ul>
             </div>

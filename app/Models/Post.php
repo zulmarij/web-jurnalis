@@ -8,6 +8,7 @@ use Awcodes\Curator\Models\Media;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Set;
@@ -122,6 +123,11 @@ class Post extends Model implements Auditable
         return substr($content, 0, $length);
     }
 
+    public function firstCategory()
+    {
+        return $this->categories->first();
+    }
+
     public function getReadTimeAttribute()
     {
         $wordCount = str_word_count(strip_tags(tiptap_converter()->asText($this->body)));
@@ -145,19 +151,24 @@ class Post extends Model implements Auditable
                 ->maxLength(255),
 
             TextInput::make('slug')
+                ->required()
                 ->maxLength(255),
 
-            // Textarea::make('sub_title')
-            //     ->maxLength(255),
+            Textarea::make('sub_title')
+                ->maxLength(255)
+                ->columnSpanFull(),
 
             Select::make('category_id')
-                ->multiple()
+                // ->multiple()
+                ->required()
+                ->label('Category')
                 ->preload()
                 ->createOptionForm(Category::getForm())
                 ->searchable()
                 ->relationship('categories', 'name'),
 
             Select::make('tag_id')
+                ->required()
                 ->multiple()
                 ->preload()
                 ->createOptionForm(Tag::getForm())

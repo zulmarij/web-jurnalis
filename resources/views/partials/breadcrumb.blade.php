@@ -4,7 +4,7 @@
             @foreach ($breadcrumbs as $breadcrumb)
                 @if ($breadcrumb->url && !$loop->last)
                     <li class="inline-flex items-center">
-                        <a href="{{ $breadcrumb->url }}" wire:navigate
+                        <a href="{{ $breadcrumb->url }}"
                             class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white">
                             <svg class="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +27,7 @@
                             </svg>
                         @endunless
                         <span
-                            class="ml-1 text-sm font-medium {{ !$loop->last ? 'text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white' : 'text-gray-500 dark:text-gray-400' }}">
+                            class="line-clamp-1 ml-1 text-sm font-medium {{ !$loop->last ? 'text-gray-700 hover:text-primary-600 dark:text-gray-400 dark:hover:text-white' : 'text-gray-500 dark:text-gray-400' }}">
                             {{ $breadcrumb->title }}
                         </span>
                     </li>

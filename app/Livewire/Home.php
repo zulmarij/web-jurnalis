@@ -8,20 +8,21 @@ use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\TwitterCard;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class Home extends Component
 {
-    public int $perPage = 12;
-
-    public Collection $posts;
+    public $featuredPost;
+    public $posts;
 
     public function mount(): void
     {
-        $this->posts = collect();
-        $this->loadPosts();
+        $this->featuredPost = Post::latest()->firstOrFail();
+        $this->posts = Post::where('id', '!=', $this->featuredPost->id)
+            ->orderBy('id', 'desc')
+            ->take(10)
+            ->get();
 
         $settings = app(GeneralSettings::class);
 
@@ -40,33 +41,5 @@ class Home extends Component
         JsonLd::setTitle($settings->site_name);
         JsonLd::setDescription($settings->site_description);
         JsonLd::addImage(Storage::url($settings->site_logo));
-    }
-
-
-    public function loadPosts(bool $loadingMore = false): void
-    {
-        $query = Post::query()->limit($this->perPage);
-
-        if ($loadingMore) {
-            $query->offset($this->posts->count());
-        }
-
-        $posts = $query->get();
-        $this->posts = $this->posts->merge($posts);
-    }
-
-    public function loadMore(): void
-    {
-        $this->loadPosts(true);
-    }
-
-    public function total(): int
-    {
-        return Post::count();
-    }
-
-    public function hasMore(): bool
-    {
-        return $this->posts->count() < $this->total();
     }
 }

@@ -50,7 +50,7 @@
         <hr class="my-6 border-dotted border-spacing-80 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400 order-2 sm:order-1">© {{ date('Y') }} <a
-                    href="/" wire:navigate class="hover:underline">{{ $siteName }}</a>. All Rights Reserved.
+                    href="/" class="hover:underline">{{ $siteName }}</a>. All Rights Reserved.
             </span>
             <div class="flex mb-4 space-x-6 sm:justify-center sm:mb-0 order-1 sm:order-2">
                 <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">

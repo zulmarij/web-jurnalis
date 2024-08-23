@@ -9,8 +9,6 @@ use Artesaos\SEOTools\Facades\JsonLd;
 use Artesaos\SEOTools\Facades\OpenGraph;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Livewire\Component;
-use Illuminate\Support\Collection;
-
 
 class Show extends Component
 {
@@ -39,14 +37,14 @@ class Show extends Component
         SEOMeta::addKeyword($keywords->unique());
 
         OpenGraph::setDescription($this->post->excerpt());
-        OpenGraph::setTitle($this->post->title);
+        OpenGraph::setTitle($this->post->title . ' - ' . $settings->site_name);
         OpenGraph::setUrl(route('post.show', ['slug' => $this->slug]));
         OpenGraph::addProperty('type', 'article');
         OpenGraph::addProperty('locale', 'id');
         OpenGraph::addProperty('locale:alternate', ['en']);
         OpenGraph::addImage($this->post->imageUrl);
 
-        JsonLd::setTitle($this->post->title);
+        JsonLd::setTitle($this->post->title . ' - ' . $settings->site_name);
         JsonLd::setDescription($this->post->excerpt());
         JsonLd::setType('Article');
         JsonLd::addImage($this->post->imageUrl);

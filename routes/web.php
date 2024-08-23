@@ -1,12 +1,17 @@
 <?php
 
-
 use App\Livewire\Home;
 use App\Livewire\Post;
+use App\Livewire\PostsByCategory;
+use App\Livewire\PostsByTag;
+use App\Livewire\PostsByAuthor;
 use Awcodes\Curator\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Home::class)->name('home');
+Route::get('/category/{slug}', PostsByCategory::class)->name('posts-by-category');
+Route::get('/tag/{slug}', PostsByTag::class)->name('posts-by-tag');
+Route::get('/author/{username}', PostsByAuthor::class)->name('posts-by-author');
 Route::get('/{slug}', Post\Show::class)->name('post.show');
 
 Route::prefix(config('curator.glide.route_path', 'curator'))
