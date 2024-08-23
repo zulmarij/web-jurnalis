@@ -53,7 +53,7 @@
             </div>
         </header>
 
-        <x-media-display :post="$this->post" class="mb-4 aspect-auto" imageClass="object-fill" />
+        <x-media-display :post="$this->post" class="mb-4 aspect-none" imageClass="object-fill" />
 
         {!! tiptap_converter()->asHtml($this->post->body) !!}
 
