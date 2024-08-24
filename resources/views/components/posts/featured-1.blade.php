@@ -13,7 +13,7 @@
             <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
                 {!! $post->sub_title ?? $post->excerpt() !!}
             </p>
-            <x-media-display :post="$post" />
+            <x-media-display :post="$post" imageClass="object-fill" aspectClass="aspect-auto" />
         </a>
     </div>
 </div>
