@@ -43,21 +43,21 @@ class Home extends Component
             ->take(4)
             ->get();
 
-        $this->edukasiPosts = Post::whereHas('categories', function ($query) {
+        $this->inspirasiPosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'inspirasi');
         })
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
 
-        $this->edukasiPosts = Post::whereHas('categories', function ($query) {
+        $this->inovasiPosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'inovasi');
         })
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
 
-        $this->edukasiPosts = Post::whereHas('categories', function ($query) {
+        $this->hiburanPosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'hiburan');
         })
             ->orderBy('created_at', 'desc')
