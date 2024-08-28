@@ -1,8 +1,8 @@
-@props(['posts'])
+@props(['posts', 'title'])
 
 @if ($posts && $posts->isNotEmpty())
     <div {{ $attributes->merge(['class' => 'border-t border-gray-900']) }}>
-        <h2 class="text-2xl font-bold text-gray-900 my-4">Berita</h2>
+        <h2 class="text-2xl font-bold text-gray-900 my-4">{{ $title }}</h2>
         <div class="grid gap-4 divide-y lg:divide-x lg:divide-y-0 divide-gray-200 lg:grid-cols-12">
 
             <article class="flex flex-col lg:col-span-5">
