@@ -30,7 +30,7 @@ class Show extends Component
         $tags =  $this->post->tags->pluck('name');
         $categories = $this->post->categories->pluck('name');
         $keywords = $tags->merge($categories)->unique()->implode(', ');
-        $media = $this->post->media_url;
+        $media = env('APP_URL') . '' . $this->post->media_url;
         $publishedTime = $this->post->published_at->toW3CString();
 
         SEOMeta::setTitle($title, false);
