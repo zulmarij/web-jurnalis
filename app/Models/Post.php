@@ -182,7 +182,8 @@ class Post extends Model implements Auditable
                 ->columnSpanFull(),
 
             CuratorPicker::make('media_id')
-                ->label('Media'),
+                ->label('Media')
+                ->required(),
 
             Fieldset::make()
                 ->schema([

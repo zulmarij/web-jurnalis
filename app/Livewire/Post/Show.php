@@ -20,33 +20,36 @@ class Show extends Component
 
     public function mount(): void
     {
+        $settings = app(GeneralSettings::class);
         $this->post = Post::whereSlug($this->slug)->firstOrFail();
         $this->latestPosts = Post::published()->take(5)->get();
         $this->latestComments = Comment::approved()->take(5)->get();
 
+        $title = ($this->post->seoDetail->title ?? $this->post->title) . ' - ' . $settings->site_name;
+        $description = $this->post->seoDetail->description ?? $this->post->excerpt();
         $tags =  $this->post->tags->pluck('name');
         $categories = $this->post->categories->pluck('name');
-        $keywords = $tags->merge($categories);
+        $keywords = $tags->merge($categories)->unique()->implode(', ');
+        $media = $this->post->media_url;
+        $publishedTime = $this->post->published_at->toW3CString();
 
-        $settings = app(GeneralSettings::class);
+        SEOMeta::setTitle($title, false);
+        SEOMeta::setDescription($description);
+        SEOMeta::addMeta('article:published_time', $publishedTime,  $categories[0]);
+        SEOMeta::addMeta('article:section',  $categories[0],  $categories[0]);
+        SEOMeta::addKeyword($keywords);
 
-        SEOMeta::setTitle($this->post->title . ' - ' . $settings->site_name, false);
-        SEOMeta::setDescription($this->post->excerpt());
-        SEOMeta::addMeta('article:published_time', $this->post->published_at->toW3CString(), $this->post->categories->first()->name);
-        SEOMeta::addMeta('article:section', $this->post->categories->first()->name, $this->post->categories->first()->name);
-        SEOMeta::addKeyword($keywords->unique());
-
-        OpenGraph::setDescription($this->post->excerpt());
-        OpenGraph::setTitle($this->post->title . ' - ' . $settings->site_name);
+        OpenGraph::setDescription($description);
+        OpenGraph::setTitle($title);
         OpenGraph::setUrl(route('post.show', ['slug' => $this->slug]));
         OpenGraph::addProperty('type', 'article');
         OpenGraph::addProperty('locale', 'id');
         OpenGraph::addProperty('locale:alternate', ['en']);
-        OpenGraph::addImage($this->post->imageUrl);
+        OpenGraph::addImage($media);
 
-        JsonLd::setTitle($this->post->title . ' - ' . $settings->site_name);
-        JsonLd::setDescription($this->post->excerpt());
+        JsonLd::setTitle($title);
+        JsonLd::setDescription($description);
         JsonLd::setType('Article');
-        JsonLd::addImage($this->post->imageUrl);
+        JsonLd::addImage($media);
     }
 }

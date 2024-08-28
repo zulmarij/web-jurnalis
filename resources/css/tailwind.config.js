@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-// const colors = require('tailwindcss/colors')
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
@@ -30,6 +29,9 @@ module.exports = {
             screens: {
                 xs: "475px",
                 ...defaultTheme.screens,
+            },
+            aspectRatio: {
+                '3/2': '3 / 2', // 600x400 memiliki rasio 3:2
             },
         },
     },
