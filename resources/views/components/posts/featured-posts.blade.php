@@ -2,9 +2,8 @@
 
 @if ($posts && $posts->isNotEmpty())
     <div {{ $attributes->merge(['class' => 'border-t border-gray-900']) }}>
-        <h2 class="text-2xl font-bold text-gray-900 my-4">{{ $title }}</h2>
+        <h2 class="text-2xl font-bold text-gray-900 my-4 line-clamp-2">{{ $title }}</h2>
         <div class="grid gap-4 divide-y lg:divide-x lg:divide-y-0 divide-gray-200 lg:grid-cols-12">
-
             <article class="flex flex-col lg:col-span-5">
                 <a href="{{ route('post.show', ['slug' => $posts->first()->slug]) }}">
                     <x-media-display :post="$posts->first()" class="mb-4" />
@@ -13,7 +12,7 @@
                     <a
                         href="{{ route('post.show', ['slug' => $posts->first()->slug]) }}">{{ $posts->first()->title }}</a>
                 </h2>
-                <p class="font-light text-gray-500">
+                <p class="font-light text-gray-500 line-clamp-3">
                     {!! $posts->first()->excerpt() !!}
                 </p>
             </article>

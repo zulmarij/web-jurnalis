@@ -3,7 +3,7 @@
         class="w-full max-w-none xl:w-[828px] format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
         <header class="mb-4 lg:mb-6 not-format">
             {{ Breadcrumbs::render('post', $this->post) }}
-            <h1 class="mb-4 text-2xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
+            <h1 class="my-4 text-2xl font-extrabold leading-tight text-gray-900 lg:my-6 lg:text-4xl dark:text-white">
                 {{ $this->post->title }}
             </h1>
             <p class="mb-4 font-light text-gray-500 dark:text-gray-400">
