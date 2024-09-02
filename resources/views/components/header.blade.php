@@ -17,33 +17,33 @@
                     </div>
                     <ul class="hidden lg:flex items-center justify-start gap-6 md:gap-8 py-3 sm:justify-center">
                         <li>
-                            <a href="{{ route('posts-by-category', ['slug' => 'berita']) }}" title="Berita"
+                            <a href="{{ route('posts-by-category', ['slug' => 'headline']) }}" title="Headline"
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Berita
+                                Headline
                             </a>
                         </li>
                         <li class="shrink-0">
-                            <a href="{{ route('posts-by-category', ['slug' => 'edukasi']) }}" title="Edukasi"
+                            <a href="{{ route('posts-by-category', ['slug' => 'now-you-know']) }}" title="Now You Know"
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Edukasi
+                                Now You Know
                             </a>
                         </li>
                         <li class="shrink-0">
-                            <a href="{{ route('posts-by-category', ['slug' => 'inspirasi']) }}" title="Inpirasi"
+                            <a href="{{ route('posts-by-category', ['slug' => 'soul-nutrient']) }}" title="Soul Nutrient"
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Inspirasi
+                                Soul Nutrient
                             </a>
                         </li>
                         <li class="shrink-0">
-                            <a href="{{ route('posts-by-category', ['slug' => 'inovasi']) }}" title="Inovasi"
+                            <a href="{{ route('posts-by-category', ['slug' => 'big-shift']) }}" title="Big Shift"
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Inovasi
+                                Big Shift
                             </a>
                         </li>
                         <li class="shrink-0">
-                            <a href="{{ route('posts-by-category', ['slug' => 'hiburan']) }}" title="Hiburan"
+                            <a href="{{ route('posts-by-category', ['slug' => 'pop-culture']) }}" title="Pop Culture"
                                 class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Hiburan
+                                Pop Culture
                             </a>
                         </li>
                     </ul>
@@ -119,24 +119,24 @@
                 class="bg-gray-50 dark:bg-gray-700 dark:border-gray-600 border border-gray-200 rounded-lg py-3 hidden px-4 mt-4">
                 <ul class="text-gray-900 dark:text-white  font-medium space-y-3">
                     <li>
-                        <a hhref="{{ route('posts-by-category', ['slug' => 'berita']) }}" title="Berita"
-                            class="hover:text-primary-700 dark:hover:text-primary-500">Berita</a>
+                        <a hhref="{{ route('posts-by-category', ['slug' => 'headline']) }}" title="Headline"
+                            class="hover:text-primary-700 dark:hover:text-primary-500">Headline</a>
                     </li>
                     <li>
-                        <a href="{{ route('posts-by-category', ['slug' => 'edukasi']) }}" title="Edukasi"
-                            class="hover:text-primary-700 dark:hover:text-primary-500">Edukasi</a>
+                        <a href="{{ route('posts-by-category', ['slug' => 'now-you-know']) }}" title="Now You Know"
+                            class="hover:text-primary-700 dark:hover:text-primary-500">Now You Know</a>
                     </li>
                     <li>
-                        <a href="{{ route('posts-by-category', ['slug' => 'inspirasi']) }}" title="Inspirasi"
-                            class="hover:text-primary-700 dark:hover:text-primary-500">Inspirasi</a>
+                        <a href="{{ route('posts-by-category', ['slug' => 'soul-nutrient']) }}" title="Soul Nutrient"
+                            class="hover:text-primary-700 dark:hover:text-primary-500">Soul Nutrient</a>
                     </li>
                     <li>
-                        <a href="{{ route('posts-by-category', ['slug' => 'inovasi']) }}" title="Inovasi"
-                            class="hover:text-primary-700 dark:hover:text-primary-500">Inovasi</a>
+                        <a href="{{ route('posts-by-category', ['slug' => 'big-shift']) }}" title="Big Shift"
+                            class="hover:text-primary-700 dark:hover:text-primary-500">Big Shift</a>
                     </li>
                     <li>
-                        <a href="{{ route('posts-by-category', ['slug' => 'hiburan']) }}" title="Hiburan"
-                            class="hover:text-primary-700 dark:hover:text-primary-500">Hiburan</a>
+                        <a href="{{ route('posts-by-category', ['slug' => 'pop-culture']) }}" title="Pop Culture"
+                            class="hover:text-primary-700 dark:hover:text-primary-500">Pop Culture</a>
                     </li>
                 </ul>
             </div>

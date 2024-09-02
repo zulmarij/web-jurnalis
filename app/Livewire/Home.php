@@ -15,11 +15,11 @@ class Home extends Component
 {
     public $featuredPost;
     // public $posts;
-    public $beritaPosts;
-    public $edukasiPosts;
-    public $inspirasiPosts;
-    public $inovasiPosts;
-    public $hiburanPosts;
+    public $headlinePosts;
+    public $nowYouKnowPosts;
+    public $soultNutrientPosts;
+    public $bigShiftPosts;
+    public $popCulturePosts;
 
     public function mount(): void
     {
@@ -29,36 +29,36 @@ class Home extends Component
         //     ->take(10)
         //     ->get();
 
-        $this->beritaPosts = Post::whereHas('categories', function ($query) {
-            $query->where('slug', 'berita');
+        $this->headlinePosts = Post::whereHas('categories', function ($query) {
+            $query->where('slug', 'headline');
         })
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
 
-        $this->edukasiPosts = Post::whereHas('categories', function ($query) {
-            $query->where('slug', 'edukasi');
+        $this->nowYouKnowPosts = Post::whereHas('categories', function ($query) {
+            $query->where('slug', 'now-you-know');
         })
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
 
-        $this->inspirasiPosts = Post::whereHas('categories', function ($query) {
-            $query->where('slug', 'inspirasi');
+        $this->soultNutrientPosts = Post::whereHas('categories', function ($query) {
+            $query->where('slug', 'soul-nutrient');
         })
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
 
-        $this->inovasiPosts = Post::whereHas('categories', function ($query) {
-            $query->where('slug', 'inovasi');
+        $this->bigShiftPosts = Post::whereHas('categories', function ($query) {
+            $query->where('slug', 'big-shift');
         })
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
 
-        $this->hiburanPosts = Post::whereHas('categories', function ($query) {
-            $query->where('slug', 'hiburan');
+        $this->popCulturePosts = Post::whereHas('categories', function ($query) {
+            $query->where('slug', 'pop-culture');
         })
             ->orderBy('created_at', 'desc')
             ->take(4)

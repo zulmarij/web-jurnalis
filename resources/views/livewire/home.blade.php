@@ -1,10 +1,10 @@
 <section class="py-4">
     <x-posts.featured-post :post="$this->featuredPost" />
     <div class="max-w-screen-xl mx-auto px-4" >
-        <x-posts.featured-posts title="Berita" :posts="$this->beritaPosts" class="my-4" />
-        <x-posts.featured-posts title="Edukasi" :posts="$this->edukasiPosts" class="my-4" />
-        <x-posts.featured-posts title="Inspirasi" :posts="$this->inspirasiPosts" class="my-4" />
-        <x-posts.featured-posts title="Inovasi" :posts="$this->inovasiPosts" class="my-4" />
-        <x-posts.featured-posts title="Hiburan" :posts="$this->hiburanPosts" class="my-4" />
+        <x-posts.featured-posts title="Headline" :posts="$this->headlinePosts" class="my-4" />
+        <x-posts.featured-posts title="Now You Know" :posts="$this->nowYouKnowPosts" class="my-4" />
+        <x-posts.featured-posts title="Soul Nutrient" :posts="$this->soultNutrientPosts" class="my-4" />
+        <x-posts.featured-posts title="Big Shift" :posts="$this->bigShiftPosts" class="my-4" />
+        <x-posts.featured-posts title="Pop Culture" :posts="$this->popCulturePosts" class="my-4" />
     </div>
 </section>
