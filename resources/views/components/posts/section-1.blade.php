@@ -17,7 +17,7 @@
             <h2 class="my-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">
                 <a href="{{ route('post.show', ['slug' => $post->slug]) }}">{!! $post->title !!}</a>
             </h2>
-            <p class="mb-4 font-light text-gray-500 dark:text-gray-400 line-clamp-3">
+            <p class="mb-4 font-light text-gray-900 dark:text-gray-400 line-clamp-3">
                 {!! $post->sub_title ?? $post->excerpt() !!}
             </p>
             {{-- <div class="flex items-center space-x-4">
