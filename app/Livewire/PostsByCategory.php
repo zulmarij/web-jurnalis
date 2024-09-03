@@ -49,6 +49,7 @@ class PostsByCategory extends Component
             ->whereHas('categories', function ($query) {
                 $query->where('slug', $this->slug);
             })
+            ->orderBy('created_at', 'desc')
             ->limit($this->perPage);
 
         if ($loadingMore) {

@@ -20,7 +20,7 @@
             <p class="mb-4 font-light text-gray-500 dark:text-gray-400 line-clamp-3">
                 {!! $post->sub_title ?? $post->excerpt() !!}
             </p>
-            <div class="flex items-center space-x-4">
+            {{-- <div class="flex items-center space-x-4">
                 <a href="{{ route('posts-by-author', ['username' =>$post->user->username ]) }}">
                     <img class="w-10 h-10 rounded-full" src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}">
                 </a>
@@ -32,7 +32,7 @@
                         {{ $post->published_at?->format('d M Y') }} · {{ $post->read_time }} min read
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </article>
     @endforeach
 </div>

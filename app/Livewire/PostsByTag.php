@@ -49,6 +49,7 @@ class PostsByTag extends Component
             ->whereHas('tags', function ($query) {
                 $query->where('slug', $this->slug);
             })
+            ->orderBy('created_at', 'desc')
             ->limit($this->perPage);
 
         if ($loadingMore) {

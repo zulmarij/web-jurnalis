@@ -49,6 +49,7 @@ class PostsByAuthor extends Component
             ->whereHas('user', function ($query) {
                 $query->where('username', $this->username);
             })
+            ->orderBy('created_at', 'desc')
             ->limit($this->perPage);
 
         if ($loadingMore) {
