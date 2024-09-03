@@ -12,7 +12,7 @@
                     <a
                         href="{{ route('post.show', ['slug' => $posts->first()->slug]) }}">{{ $posts->first()->title }}</a>
                 </h2>
-                <p class="font-light text-gray-500 line-clamp-3">
+                <p class="font-light text-gray-900 line-clamp-3">
                     {!! $posts->first()->excerpt() !!}
                 </p>
             </article>
@@ -25,7 +25,7 @@
                                 <h2 class="mb-2 line-clamp-2 text-2xl font-bold tracking-tight text-gray-900">
                                     <a href="{{ route('post.show', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
                                 </h2>
-                                <p class="font-light text-gray-500 line-clamp-3">{!! $post->excerpt() !!}</p>
+                                <p class="font-light text-gray-900 line-clamp-3">{!! $post->excerpt() !!}</p>
                             </div>
                         </article>
                     @else
@@ -35,7 +35,7 @@
                                 <h2 class="mb-2 line-clamp-2 text-2xl font-bold tracking-tight text-gray-900">
                                     <a href="{{ route('post.show', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
                                 </h2>
-                                <p class="font-light text-gray-500 line-clamp-3">{!! $post->excerpt() !!}</p>
+                                <p class="font-light text-gray-900 line-clamp-3">{!! $post->excerpt() !!}</p>
                             </div>
                             <div class="sm:basis-4/12">
                                 <x-media-display :post="$post" />
