@@ -24,14 +24,11 @@ class Home extends Component
     public function mount(): void
     {
         $this->featuredPost = Post::latest()->firstOrFail();
-        // $this->posts = Post::where('id', '!=', $this->featuredPost->id)
-        //     ->orderBy('id', 'desc')
-        //     ->take(10)
-        //     ->get();
 
         $this->headlinePosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'headline');
         })
+            ->where('id', '!=', $this->featuredPost->id)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
@@ -39,6 +36,7 @@ class Home extends Component
         $this->nowYouKnowPosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'now-you-know');
         })
+            ->where('id', '!=', $this->featuredPost->id)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
@@ -46,6 +44,7 @@ class Home extends Component
         $this->soultNutrientPosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'soul-nutrient');
         })
+            ->where('id', '!=', $this->featuredPost->id)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
@@ -53,6 +52,7 @@ class Home extends Component
         $this->bigShiftPosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'big-shift');
         })
+            ->where('id', '!=', $this->featuredPost->id)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
@@ -60,6 +60,7 @@ class Home extends Component
         $this->popCulturePosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'pop-culture');
         })
+            ->where('id', '!=', $this->featuredPost->id)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
