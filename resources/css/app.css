@@ -2,4 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'Times New Roman';
+    src: url('/fonts/times-new-roman.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @config 'tailwind.config.js';
+
+

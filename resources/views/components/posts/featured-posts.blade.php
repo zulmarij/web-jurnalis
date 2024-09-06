@@ -8,7 +8,7 @@
                 <a href="{{ route('post.show', ['slug' => $posts->first()->slug]) }}">
                     <x-media-display :post="$posts->first()" class="mb-4" />
                 </a>
-                <h2 class="my-2 text-2xl font-bold tracking-tight text-gray-900">
+                <h2 class="my-2 text-2xl font-bold tracking-tight text-gray-900 font-times">
                     <a
                         href="{{ route('post.show', ['slug' => $posts->first()->slug]) }}">{{ $posts->first()->title }}</a>
                 </h2>
@@ -22,7 +22,7 @@
                     @if ($loop->last)
                         <article class="pt-4">
                             <div>
-                                <h2 class="mb-2 line-clamp-2 text-2xl font-bold tracking-tight text-gray-900">
+                                <h2 class="mb-2 line-clamp-2 text-2xl font-bold tracking-tight text-gray-900 font-times">
                                     <a href="{{ route('post.show', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
                                 </h2>
                                 <p class="font-light text-gray-900 line-clamp-3">{!! $post->excerpt() !!}</p>
@@ -32,7 +32,7 @@
                         <article
                             class="flex sm:space-x-2 sm:flex-row flex-col-reverse @if ($loop->iteration === 2) pt-4 @endif">
                             <div class="sm:basis-8/12 lg:mt-0 mt-2">
-                                <h2 class="mb-2 line-clamp-2 text-2xl font-bold tracking-tight text-gray-900">
+                                <h2 class="mb-2 line-clamp-2 text-2xl font-bold tracking-tight text-gray-900 font-times">
                                     <a href="{{ route('post.show', ['slug' => $post->slug]) }}">{{ $post->title }}</a>
                                 </h2>
                                 <p class="font-light text-gray-900 line-clamp-3">{!! $post->excerpt() !!}</p>

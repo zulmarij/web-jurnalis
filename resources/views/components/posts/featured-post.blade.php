@@ -7,7 +7,7 @@
             {{ $post->firstCategory()->name }}
         </a>
         <a href="{{ route('post.show', ['slug' => $post->slug]) }}">
-            <h1 class="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2">
+            <h1 class="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2 font-times">
                 {!! $post->title !!}
             </h1>
             <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">

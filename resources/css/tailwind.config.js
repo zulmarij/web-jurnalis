@@ -26,12 +26,15 @@ module.exports = {
                     900: "#1e3a8a",
                 },
             },
+            fontFamily: {
+                times: ["Times New Roman", "serif"],
+            },
             screens: {
                 xs: "475px",
                 ...defaultTheme.screens,
             },
             aspectRatio: {
-                '3/2': '3 / 2', // 600x400 memiliki rasio 3:2
+                "3/2": "3 / 2", // 600x400 memiliki rasio 3:2
             },
         },
     },
