@@ -15,6 +15,7 @@ use App\Policies\ActivityPolicy;
 use App\Policies\CategoryPolicy;
 use App\Policies\CommentPolicy;
 use App\Policies\ExceptionPolicy;
+use App\Policies\MediaPolicy;
 use App\Policies\NewsLetterPolicy;
 use App\Policies\PostPolicy;
 use App\Policies\QueueMonitorPolicy;
@@ -22,6 +23,7 @@ use App\Policies\RolePolicy;
 use App\Policies\SeoDetailPolicy;
 use App\Policies\TagPolicy;
 use App\Policies\UserPolicy;
+use Awcodes\Curator\Models\Media;
 use BezhanSalleh\FilamentExceptions\Models\Exception;
 use Croustibat\FilamentJobsMonitor\Models\QueueMonitor;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -40,6 +42,7 @@ class AuthServiceProvider extends ServiceProvider
         Category::class => CategoryPolicy::class,
         Comment::class => CommentPolicy::class,
         Exception::class => ExceptionPolicy::class,
+        Media::class => MediaPolicy::class,
         NewsLetter::class => NewsLetterPolicy::class,
         Post::class => PostPolicy::class,
         Role::class => RolePolicy::class,

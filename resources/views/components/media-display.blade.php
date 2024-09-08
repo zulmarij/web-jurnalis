@@ -1,8 +1,15 @@
-@props(['post', 'showControls' => true, 'imageClass' => '', 'aspectClass' => 'aspect-video'])
+@props([
+    'post',
+    'showControls' => true,
+    'showCaption' => false,
+    'imageClass' => '',
+    'aspectClass' => 'aspect-video',
+])
 
 <div {{ $attributes->merge(['class' => $aspectClass]) }}>
     @php
         $mediaType = $post->media->type;
+        $mediaCaption = $post->media->caption;
     @endphp
 
     @if (str_contains($mediaType, 'image'))
@@ -14,4 +21,8 @@
             Your browser does not support the video tag.
         </video>
     @endif
+
 </div>
+@if ($mediaCaption && $showCaption)
+    <small class="block -mt-4">{{ $mediaCaption }}</small>
+@endif

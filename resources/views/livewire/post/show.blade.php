@@ -45,7 +45,7 @@
             </div>
         </header>
 
-        <x-media-display :post="$this->post" class="mb-4"/>
+        <x-media-display :post="$this->post" class="mb-4" showCaption />
 
         <div class="text-gray-900">
             {!! tiptap_converter()->asHtml($this->post->body) !!}
