@@ -31,7 +31,7 @@
                         </time>
                     </span>
                 </div>
-                <a href="#comments"
+                {{-- <a href="#comments"
                     class="flex items-center text-sm font-medium shrink-0 text-primary-600 dark:text-primary-500 hover:underline">
                     <svg class="mr-1 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@
                         </path>
                     </svg>
                     {{ $this->post->comments->count() }} Comments
-                </a>
+                </a> --}}
             </div>
         </header>
 
