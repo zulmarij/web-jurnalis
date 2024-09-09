@@ -34,7 +34,9 @@ class Show extends Component
         $description = $this->post->seoDetail->description ?? $this->post->excerpt();
         $tags =  $this->post->tags->pluck('name');
         $categories = $this->post->categories->pluck('name');
-        $keywords = collect($this->post->seoDetail->keywords)->implode(', ') ?? $tags->merge($categories)->unique()->implode(', ');
+        $keywords = optional($this->post->seoDetail)->keywords
+            ? collect($this->post->seoDetail->keywords)->implode(', ')
+            : $tags->merge($categories)->unique()->implode(', ');
         $media = env('APP_URL') . '' . $this->post->media_url;
         $publishedTime = $this->post->published_at->toW3CString();
 
