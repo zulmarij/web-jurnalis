@@ -23,6 +23,7 @@ use Filament\Infolists\Infolist;
 use Filament\Pages\Page;
 use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -81,7 +82,7 @@ class PostResource extends Resource implements HasShieldPermissions
             ->deferLoading()
             ->columns([
                 CuratorColumn::make('media')
-                ->size(32),
+                    ->size(32),
 
                 TextColumn::make('title')
                     ->description(function (Post $record) {
@@ -119,8 +120,14 @@ class PostResource extends Resource implements HasShieldPermissions
             ])
             ->actions([
                 ActionGroup::make([
+                    Action::make('view')
+                        ->label('View')
+                        ->requiresConfirmation()
+                        ->icon('heroicon-o-eye')
+                        ->url(fn($record) => $record->url)
+                        ->extraAttributes(['target' => '_blank']),
                     EditAction::make(),
-                    ViewAction::make(),
+                    // ViewAction::make(),
                 ]),
             ])
             ->bulkActions([
@@ -170,10 +177,10 @@ class PostResource extends Resource implements HasShieldPermissions
     public static function getRecordSubNavigation(Page $page): array
     {
         return $page->generateNavigationItems([
-            ViewPost::class,
+            EditPost::class,
+            // ViewPost::class,
             ManaePostSeoDetail::class,
             ManagePostComments::class,
-            EditPost::class,
         ]);
     }
     public static function getRelations(): array
@@ -192,7 +199,7 @@ class PostResource extends Resource implements HasShieldPermissions
             'index' => ListPosts::route('/'),
             'create' => CreatePost::route('/create'),
             'edit' => EditPost::route('/{record}/edit'),
-            'view' => ViewPost::route('/{record}'),
+            // 'view' => ViewPost::route('/{record}'),
             'comments' => ManagePostComments::route('/{record}/comments'),
             'seoDetail' => ManaePostSeoDetail::route('/{record}/seo-details'),
         ];

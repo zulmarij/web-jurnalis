@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5408bbd0c99669a1ade60f0d373b1d12",
+    "content-hash": "debf6a0306610190667e74e78f9737bf",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -5216,6 +5216,80 @@
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
             "time": "2024-05-08T12:18:48+00:00"
+        },
+        {
+            "name": "pboivin/filament-peek",
+            "version": "v2.2.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pboivin/filament-peek.git",
+                "reference": "85d0d4c356b573ae67f4a0715a15af5a729d085c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pboivin/filament-peek/zipball/85d0d4c356b573ae67f4a0715a15af5a729d085c",
+                "reference": "85d0d4c356b573ae67f4a0715a15af5a729d085c",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^3.0",
+                "illuminate/contracts": "^10.0 || ^11.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.15"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.9",
+                "nunomaduro/larastan": "^2.0",
+                "orchestra/testbench": "^8.0",
+                "pestphp/pest": "^2.0",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "spatie/invade": "^1.1",
+                "symfony/polyfill-php82": "^1.28"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Pboivin\\FilamentPeek\\FilamentPeekServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pboivin\\FilamentPeek\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Patrick Boivin",
+                    "email": "pboivin@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Full-screen page preview modal for Filament",
+            "homepage": "https://github.com/pboivin/filament-peek",
+            "keywords": [
+                "filament",
+                "laravel",
+                "modal",
+                "plugin",
+                "preview",
+                "previewer"
+            ],
+            "support": {
+                "issues": "https://github.com/pboivin/filament-peek/issues",
+                "source": "https://github.com/pboivin/filament-peek/tree/v2.2.9"
+            },
+            "time": "2024-09-04T19:10:23+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",

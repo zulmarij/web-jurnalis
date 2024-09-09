@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Post;
 
+use App\Concerns\HasPreview;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Settings\GeneralSettings;
@@ -12,6 +13,7 @@ use Livewire\Component;
 
 class Show extends Component
 {
+    use HasPreview;
 
     public  $slug;
     public  $post;
@@ -24,12 +26,15 @@ class Show extends Component
         $this->post = Post::whereSlug($this->slug)->firstOrFail();
         $this->latestPosts = Post::published()->take(5)->get();
         $this->latestComments = Comment::approved()->take(5)->get();
+        $this->handlePreview();
+
+        abort_unless($this->isPreview || $this->post->isStatusPublished(), 404);
 
         $title = ($this->post->seoDetail->title ?? $this->post->title) . ' - ' . $settings->site_name;
         $description = $this->post->seoDetail->description ?? $this->post->excerpt();
         $tags =  $this->post->tags->pluck('name');
         $categories = $this->post->categories->pluck('name');
-        $keywords = $tags->merge($categories)->unique()->implode(', ');
+        $keywords = collect($this->post->seoDetail->keywords)->implode(', ') ?? $tags->merge($categories)->unique()->implode(', ');
         $media = env('APP_URL') . '' . $this->post->media_url;
         $publishedTime = $this->post->published_at->toW3CString();
 

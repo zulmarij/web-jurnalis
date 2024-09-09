@@ -2,20 +2,30 @@
 
 namespace App\Filament\Resources\PostResource\Pages;
 
+use App\Concerns\HasPreview;
 use App\Enums\PostStatus;
 use App\Filament\Resources\PostResource;
+use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
+use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
+use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 
 class EditPost extends EditRecord
 {
+    use HasPreview, HasPreviewModal;
     protected static string $resource = PostResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
+            // Action::make('view')
+            //     ->label('View')
+            //     ->url(fn($record) => $record->url)
+            //     ->extraAttributes(['target' => '_blank']),
+            PreviewAction::make(),
             DeleteAction::make(),
             ForceDeleteAction::make(),
             RestoreAction::make(),
@@ -32,5 +42,15 @@ class EditPost extends EditRecord
     protected function afterSave(): void
     {
         $this->dispatch('updateAuditsRelationManager');
+    }
+
+    protected function getPreviewModalUrl(): ?string
+    {
+        $this->generatePreviewSession();
+
+        return route('post.show', [
+            'slug' => $this->record->slug,
+            'previewToken' => $this->previewToken,
+        ]);
     }
 }

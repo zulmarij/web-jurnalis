@@ -6,5 +6,6 @@ export default {
         "./vendor/filament/**/*.blade.php",
         "./vendor/awcodes/filament-tiptap-editor/resources/**/*.blade.php",
         "./vendor/awcodes/filament-curator/resources/**/*.blade.php",
+        './vendor/pboivin/filament-peek/resources/**/*.blade.php'
     ],
 };

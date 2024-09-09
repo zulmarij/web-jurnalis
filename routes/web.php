@@ -13,6 +13,7 @@ Route::get('/category/{slug}', PostsByCategory::class)->name('posts-by-category'
 Route::get('/tag/{slug}', PostsByTag::class)->name('posts-by-tag');
 Route::get('/author/{username}', PostsByAuthor::class)->name('posts-by-author');
 Route::get('/{slug}', Post\Show::class)->name('post.show');
+Route::get('/preview/{slug}', Post\Preview::class)->name('post.preview');
 
 Route::prefix(config('curator.glide.route_path', 'curator'))
     ->get('/{path}', [MediaController::class, 'show'])

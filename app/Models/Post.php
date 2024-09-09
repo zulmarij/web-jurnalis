@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PostStatus;
+use App\Filament\Resources\PostResource;
 use Awcodes\Curator\Components\Forms\CuratorPicker;
 use Awcodes\Curator\Models\Media;
 use Filament\Forms\Components\DateTimePicker;
@@ -135,6 +136,16 @@ class Post extends Model implements Auditable
         $readTime = ceil($wordCount / $wordsPerMinute);
 
         return $readTime;
+    }
+
+    public function getUrlAttribute()
+    {
+        return route('post.show', ['slug' => $this->slug]);
+    }
+
+    public function getEditUrlAttribute()
+    {
+        return PostResource::getUrl('edit', ['record' => $this]);
     }
 
     public static function getForm()

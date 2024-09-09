@@ -28,6 +28,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Pboivin\FilamentPeek\FilamentPeekPlugin;
 use ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthPlugin;
 
 class AdminPanelProvider extends PanelProvider
@@ -93,6 +94,7 @@ class AdminPanelProvider extends PanelProvider
                         'personal_info' => MyProfileExtended::class,
                     ]),
                 FilamentJobsMonitorPlugin::make(),
+                FilamentPeekPlugin::make(),
                 CuratorPlugin::make(),
             ]);
     }
