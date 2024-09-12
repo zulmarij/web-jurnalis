@@ -15,40 +15,53 @@
                                 alt="{{ $siteName }}">
                         </a>
                     </div>
-                    <ul class="hidden lg:flex items-center justify-start gap-6 md:gap-8 py-3 sm:justify-center">
-                        <li>
-                            <a href="{{ route('posts-by-category', ['slug' => 'headline']) }}" title="Headline"
-                                class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Headline
-                            </a>
-                        </li>
-                        <li class="shrink-0">
-                            <a href="{{ route('posts-by-category', ['slug' => 'now-you-know']) }}" title="Now You Know"
-                                class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Now You Know
-                            </a>
-                        </li>
-                        <li class="shrink-0">
-                            <a href="{{ route('posts-by-category', ['slug' => 'soul-nutrient']) }}" title="Soul Nutrient"
-                                class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Soul Nutrient
-                            </a>
-                        </li>
-                        <li class="shrink-0">
-                            <a href="{{ route('posts-by-category', ['slug' => 'big-shift']) }}" title="Big Shift"
-                                class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Big Shift
-                            </a>
-                        </li>
-                        <li class="shrink-0">
-                            <a href="{{ route('posts-by-category', ['slug' => 'pop-culture']) }}" title="Pop Culture"
-                                class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                Pop Culture
-                            </a>
-                        </li>
-                    </ul>
                 </div>
 
+                <ul class="hidden lg:flex items-center justify-start gap-6 py-3">
+                    <li>
+                        <a href="{{ route('posts-by-category', ['slug' => 'headline']) }}" title="Headline"
+                            class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                            Headline
+                        </a>
+                    </li>
+                    <li class="shrink-0">
+                        <a href="{{ route('posts-by-category', ['slug' => 'now-you-know']) }}" title="Now You Know"
+                            class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                            Now You Know
+                        </a>
+                    </li>
+                    <li class="shrink-0">
+                        <a href="{{ route('posts-by-category', ['slug' => 'soul-nutrient']) }}" title="Soul Nutrient"
+                            class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                            Soul Nutrient
+                        </a>
+                    </li>
+                    <li class="shrink-0">
+                        <a href="{{ route('posts-by-category', ['slug' => 'big-shift']) }}" title="Big Shift"
+                            class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                            Big Shift
+                        </a>
+                    </li>
+                    <li class="shrink-0">
+                        <a href="{{ route('posts-by-category', ['slug' => 'pop-culture']) }}" title="Pop Culture"
+                            class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                            Pop Culture
+                        </a>
+                    </li>
+                    <li class="shrink-0">
+                        <a href="{{ route('posts-by-category', ['slug' => 'human-of-change']) }}"
+                            title="Human of Change"
+                            class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                            Human of Change
+                        </a>
+                    </li>
+                    <li class="shrink-0">
+                        <a href="{{ route('posts-by-category', ['slug' => 'social-podium']) }}" title="Social Podium"
+                            class="flex font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                            Social Podium
+                        </a>
+                    </li>
+                </ul>
                 <div class="flex items-center lg:space-x-2">
                     @auth
                         <button id="userDropdownButton1" data-dropdown-toggle="userDropdown1" type="button"
@@ -137,6 +150,15 @@
                     <li>
                         <a href="{{ route('posts-by-category', ['slug' => 'pop-culture']) }}" title="Pop Culture"
                             class="hover:text-primary-700 dark:hover:text-primary-500">Pop Culture</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('posts-by-category', ['slug' => 'human-of-change']) }}"
+                            title="Human of Change" class="hover:text-primary-700 dark:hover:text-primary-500">Human
+                            of Change</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('posts-by-category', ['slug' => 'social-podium']) }}" title="Social Podium"
+                            class="hover:text-primary-700 dark:hover:text-primary-500">Social Podium</a>
                     </li>
                 </ul>
             </div>

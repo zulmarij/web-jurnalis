@@ -6,5 +6,7 @@
         <x-posts.featured-posts title="Soul Nutrient" :posts="$this->soultNutrientPosts" class="my-4" />
         <x-posts.featured-posts title="Big Shift" :posts="$this->bigShiftPosts" class="my-4" />
         <x-posts.featured-posts title="Pop Culture" :posts="$this->popCulturePosts" class="my-4" />
+        <x-posts.featured-posts title="Human of Change" :posts="$this->humanOfChangePosts" class="my-4" />
+        <x-posts.featured-posts title="Social Podium" :posts="$this->socialPodiumPosts" class="my-4" />
     </div>
 </section>
