@@ -31,7 +31,7 @@ class Show extends Component
         abort_unless($this->isPreview || $this->post->isStatusPublished(), 404);
 
         $title = ($this->post->seoDetail->title ?? $this->post->title) . ' - ' . $settings->site_name;
-        $description = $this->post->seoDetail->description ?? $this->post->excerpt();
+        $description = $this->post->seoDetail->description ?? $this->post->sub_title ?? $this->post->excerpt();
         $tags =  $this->post->tags->pluck('name');
         $categories = $this->post->categories->pluck('name');
         $keywords = optional($this->post->seoDetail)->keywords

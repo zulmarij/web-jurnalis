@@ -68,20 +68,20 @@ class Home extends Component
             ->get();
 
         $this->humanOfChangePosts = Post::whereHas('categories', function ($query) {
-            $query->where('slug', 'human_of_change');
+            $query->where('slug', 'human-of-change');
         })
             ->where('id', '!=', $this->featuredPost->id)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
 
-            $this->socialPodiumPosts = Post::whereHas('categories', function ($query) {
-                $query->where('slug', 'social_podium');
-            })
-                ->where('id', '!=', $this->featuredPost->id)
-                ->orderBy('created_at', 'desc')
-                ->take(4)
-                ->get();
+        $this->socialPodiumPosts = Post::whereHas('categories', function ($query) {
+            $query->where('slug', 'social-podium');
+        })
+            ->where('id', '!=', $this->featuredPost->id)
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get();
 
 
         $settings = app(GeneralSettings::class);
