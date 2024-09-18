@@ -98,6 +98,9 @@ class PostResource extends Resource implements HasShieldPermissions
                 UserAvatarName::make('user')
                     ->label('Author'),
 
+                TextColumn::make('views')
+                    ->sortable(),
+
                 TextColumn::make('created_at')
                     ->date()
                     ->sortable()

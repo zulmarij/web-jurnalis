@@ -37,6 +37,7 @@ class Post extends Model implements Auditable
         'sub_title',
         'body',
         'is_featured',
+        'views',
         'media_id',
         'status',
         'published_at',
