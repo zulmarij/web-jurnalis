@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Analytics;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Auth\Register;
 use App\Filament\Pages\HealthCheckResults;
@@ -60,6 +61,11 @@ class AdminPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
+                // Pages\Settings\GeneralSettings::class,
+                Analytics::class,
+                // Pages\Auth\ForgotPassword::class,
+                // Pages\Auth\ResetPassword::class,
+                // Pages\Auth\VerifyEmail::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([

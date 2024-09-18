@@ -10,6 +10,7 @@
         "awcodes/filament-curator": "^3.6",
         "awcodes/filament-tiptap-editor": "^3.0",
         "bezhansalleh/filament-exceptions": "^2.1",
+        "bezhansalleh/filament-google-analytics": "^2.0",
         "bezhansalleh/filament-shield": "^3.2",
         "codeat3/blade-fluentui-system-icons": "^1.33",
         "croustibat/filament-jobs-monitor": "^2.5",
