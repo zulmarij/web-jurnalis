@@ -25,7 +25,7 @@ class Home extends Component
 
     public function mount(): void
     {
-        $this->featuredPost = Post::where('is_featured', true)->firstOrFail();
+        $this->featuredPost = Post::where('is_featured', true)->first();
 
         $this->headlinePosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'headline');
