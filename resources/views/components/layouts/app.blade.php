@@ -22,6 +22,18 @@
 
     @livewireStyles
     @vite('resources/css/app.css')
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3WXYWRH2X"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-Y3WXYWRH2X');
+    </script>
 </head>
 
 <body class="antialiased">
