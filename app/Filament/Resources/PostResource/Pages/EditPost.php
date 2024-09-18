@@ -5,6 +5,7 @@ namespace App\Filament\Resources\PostResource\Pages;
 use App\Concerns\HasPreview;
 use App\Enums\PostStatus;
 use App\Filament\Resources\PostResource;
+use App\Models\Post;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
@@ -42,6 +43,12 @@ class EditPost extends EditRecord
     protected function afterSave(): void
     {
         $this->dispatch('updateAuditsRelationManager');
+
+        if ($this->record->is_featured) {
+            Post::where('is_featured', true)
+                ->where('id', '!=', $this->record->id)
+                ->update(['is_featured' => false]);
+        }
     }
 
     protected function getPreviewModalUrl(): ?string

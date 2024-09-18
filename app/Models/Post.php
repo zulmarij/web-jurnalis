@@ -11,6 +11,7 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Set;
 use FilamentTiptapEditor\TiptapEditor;
@@ -35,6 +36,7 @@ class Post extends Model implements Auditable
         'slug',
         'sub_title',
         'body',
+        'is_featured',
         'media_id',
         'status',
         'published_at',
@@ -47,6 +49,7 @@ class Post extends Model implements Auditable
     ];
 
     protected $casts = [
+        'is_featured' => 'boolean',
         'published_at' => 'datetime',
         'scheduled_for' => 'datetime',
         'status' => PostStatus::class,
@@ -195,6 +198,10 @@ class Post extends Model implements Auditable
             CuratorPicker::make('media_id')
                 ->label('Media')
                 ->required(),
+
+            Toggle::make('is_featured')
+                ->inline(false)
+                ->columnSpanFull(),
 
             Fieldset::make()
                 ->schema([

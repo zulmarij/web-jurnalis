@@ -6,6 +6,7 @@ use App\Events\ArticlePublished;
 use App\Filament\Resources\PostResource;
 use App\Filament\Resources\SeoDetailResource;
 use App\Jobs\PostScheduleJob;
+use App\Models\Post;
 use Carbon\Carbon;
 use Filament\Resources\Pages\CreateRecord;
 
@@ -16,6 +17,12 @@ class CreatePost extends CreateRecord
     protected function afterCreate()
     {
         $this->dispatch('updateAuditsRelationManager');
+
+        if ($this->record->is_featured) {
+            Post::where('is_featured', true)
+                ->where('id', '!=', $this->record->id)
+                ->update(['is_featured' => false]);
+        }
         if ($this->record->isScheduled()) {
             $now = Carbon::now();
             $scheduledFor = Carbon::parse($this->record->scheduled_for);
