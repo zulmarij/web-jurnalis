@@ -98,7 +98,8 @@ class PostResource extends Resource implements HasShieldPermissions
                 UserAvatarName::make('user')
                     ->label('Author'),
 
-                TextColumn::make('views'),
+                TextColumn::make('views')
+                    ->formatStateUsing(fn(Post $record) => $record->fetchViews()),
 
                 TextColumn::make('created_at')
                     ->date()

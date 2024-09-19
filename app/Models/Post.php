@@ -93,22 +93,6 @@ class Post extends Model implements Auditable
     }
 
     // Accessors
-    public function getViewsAttribute()
-    {
-        $analytics = Analytics::get(
-            period: Period::create($this->published_at, now()),
-            metrics: ['screenPageViews'],
-            dimensions: ['pagePath'],
-            dimensionFilter: (new FilterExpression())->setFilter(
-                (new Filter())->setFieldName('pagePath')->setStringFilter(
-                    (new Filter\StringFilter())->setMatchType(MatchType::BEGINS_WITH)->setValue('/' . $this->slug)
-                )
-            )
-        );
-
-        return $analytics->sum('screenPageViews') ?? 0;
-    }
-
     protected function getMediaUrlAttribute()
     {
         return Storage::url($this->media->path);
@@ -151,6 +135,22 @@ class Post extends Model implements Auditable
     public function firstCategory()
     {
         return $this->categories->first();
+    }
+
+    public function fetchViews()
+    {
+        $analytics = Analytics::get(
+            period: Period::create($this->published_at, now()),
+            metrics: ['screenPageViews'],
+            dimensions: ['pagePath'],
+            dimensionFilter: (new FilterExpression())->setFilter(
+                (new Filter())->setFieldName('pagePath')->setStringFilter(
+                    (new Filter\StringFilter())->setMatchType(MatchType::BEGINS_WITH)->setValue('/' . $this->slug)
+                )
+            )
+        );
+
+        return $analytics->sum('screenPageViews') ?? 0;
     }
 
     // Scopes
