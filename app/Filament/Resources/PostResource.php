@@ -30,7 +30,6 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Actions\RestoreBulkAction;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
@@ -38,8 +37,6 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
-use Spatie\Analytics\Analytics;
-use Spatie\Analytics\Period;
 use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class PostResource extends Resource implements HasShieldPermissions
@@ -51,6 +48,7 @@ class PostResource extends Resource implements HasShieldPermissions
     protected static ?int $navigationSort = -4;
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
+    // Permissions
     public static function getPermissionPrefixes(): array
     {
         return [
@@ -67,17 +65,19 @@ class PostResource extends Resource implements HasShieldPermissions
         ];
     }
 
+    // Navigation
     public static function getNavigationBadge(): ?string
     {
         return strval(Post::count());
     }
 
+    // Form
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema(Post::getForm());
+        return $form->schema(Post::getForm());
     }
 
+    // Table
     public static function table(Table $table): Table
     {
         return $table
@@ -87,58 +87,41 @@ class PostResource extends Resource implements HasShieldPermissions
                     ->size(32),
 
                 TextColumn::make('title')
-                    ->description(function (Post $record) {
-                        return Str::limit($record->sub_title, 40);
-                    })
-                    ->searchable()->limit(40),
+                    ->description(fn(Post $record) => Str::limit($record->sub_title, 40))
+                    ->searchable()
+                    ->limit(40),
+
                 TextColumn::make('status')
                     ->badge()
-                    ->color(function ($state) {
-                        return $state->getColor();
-                    }),
+                    ->color(fn($state) => $state->getColor()),
 
                 UserAvatarName::make('user')
                     ->label('Author'),
 
-                TextColumn::make('pageviews')
-                    ->label('Views')
-                    ->formatStateUsing(function ($state, $record) {
-                        $analytics = app(Analytics::class);
-                        $urlPath = $record->slug;
-
-                        $startDate = $record->created_at->format('Y-m-d');
-                        $endDate = now()->format('Y-m-d');
-
-                        $results = $analytics->performQuery(
-                            Period::between($startDate, $endDate),
-                            'ga:pageviews',
-                            [
-                                'dimensions' => 'ga:pagePath',
-                                'filters' => 'ga:pagePath==' . $urlPath
-                            ]
-                        );
-
-                        return $results->totalsForAllResults['ga:pageviews'] ?? 0;
-                    }),
+                TextColumn::make('views'),
 
                 TextColumn::make('created_at')
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('updated_at')
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('deleted_at')
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])->defaultSort('id', 'desc')
+            ])
+            ->defaultSort('id', 'desc')
             ->filters([
                 SelectFilter::make('user.name')
                     ->searchable()
                     ->preload()
                     ->multiple(),
+
                 TrashedFilter::make(),
             ])
             ->actions([
@@ -149,8 +132,8 @@ class PostResource extends Resource implements HasShieldPermissions
                         ->icon('heroicon-o-eye')
                         ->url(fn($record) => $record->url)
                         ->extraAttributes(['target' => '_blank']),
+
                     EditAction::make(),
-                    // ViewAction::make(),
                 ]),
             ])
             ->bulkActions([
@@ -162,6 +145,7 @@ class PostResource extends Resource implements HasShieldPermissions
             ]);
     }
 
+    // Infolist
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist->schema([
@@ -173,20 +157,20 @@ class PostResource extends Resource implements HasShieldPermissions
                             TextEntry::make('slug'),
                             TextEntry::make('sub_title'),
                         ]),
+
                     Fieldset::make('Publish Information')
                         ->schema([
                             TextEntry::make('status')
-                                ->badge()->color(function ($state) {
-                                    return $state->getColor();
-                                }),
-                            TextEntry::make('published_at')->visible(function (Post $record) {
-                                return $record->status === PostStatus::PUBLISHED;
-                            }),
+                                ->badge()
+                                ->color(fn($state) => $state->getColor()),
 
-                            TextEntry::make('scheduled_for')->visible(function (Post $record) {
-                                return $record->status === PostStatus::SCHEDULED;
-                            }),
+                            TextEntry::make('published_at')
+                                ->visible(fn(Post $record) => $record->status === PostStatus::PUBLISHED),
+
+                            TextEntry::make('scheduled_for')
+                                ->visible(fn(Post $record) => $record->status === PostStatus::SCHEDULED),
                         ]),
+
                     Fieldset::make('Description')
                         ->schema([
                             TextEntry::make('body')
@@ -197,15 +181,17 @@ class PostResource extends Resource implements HasShieldPermissions
         ]);
     }
 
+    // Sub Navigation
     public static function getRecordSubNavigation(Page $page): array
     {
         return $page->generateNavigationItems([
             EditPost::class,
-            // ViewPost::class,
             ManaePostSeoDetail::class,
             ManagePostComments::class,
         ]);
     }
+
+    // Relations
     public static function getRelations(): array
     {
         return [
@@ -215,19 +201,19 @@ class PostResource extends Resource implements HasShieldPermissions
         ];
     }
 
-
+    // Pages
     public static function getPages(): array
     {
         return [
             'index' => ListPosts::route('/'),
             'create' => CreatePost::route('/create'),
             'edit' => EditPost::route('/{record}/edit'),
-            // 'view' => ViewPost::route('/{record}'),
             'comments' => ManagePostComments::route('/{record}/comments'),
             'seoDetail' => ManaePostSeoDetail::route('/{record}/seo-details'),
         ];
     }
 
+    // Eloquent Query
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

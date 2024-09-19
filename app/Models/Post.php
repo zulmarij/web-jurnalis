@@ -15,6 +15,9 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Set;
 use FilamentTiptapEditor\TiptapEditor;
+use Google\Analytics\Data\V1beta\Filter;
+use Google\Analytics\Data\V1beta\Filter\StringFilter\MatchType;
+use Google\Analytics\Data\V1beta\FilterExpression;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,18 +29,20 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use Spatie\Analytics\Facades\Analytics;
+use Spatie\Analytics\Period;
 
 class Post extends Model implements Auditable
 {
     use HasFactory, SoftDeletes, AuditableTrait;
 
+    // Attributes
     protected $fillable = [
         'title',
         'slug',
         'sub_title',
         'body',
         'is_featured',
-        'views',
         'media_id',
         'status',
         'published_at',
@@ -56,7 +61,8 @@ class Post extends Model implements Auditable
         'status' => PostStatus::class,
     ];
 
-    public function categories()
+    // Relationships
+    public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'category_post');
     }
@@ -86,51 +92,26 @@ class Post extends Model implements Auditable
         return $this->belongsTo(Media::class, 'media_id', 'id');
     }
 
-    public function isNotPublished()
+    // Accessors
+    public function getViewsAttribute()
     {
-        return !$this->isStatusPublished();
-    }
+        $analytics = Analytics::get(
+            period: Period::create($this->published_at, now()),
+            metrics: ['screenPageViews'],
+            dimensions: ['pagePath'],
+            dimensionFilter: (new FilterExpression())->setFilter(
+                (new Filter())->setFieldName('pagePath')->setStringFilter(
+                    (new Filter\StringFilter())->setMatchType(MatchType::BEGINS_WITH)->setValue('/' . $this->slug)
+                )
+            )
+        );
 
-    public function scopePublished(Builder $query)
-    {
-        return $query->where('status', PostStatus::PUBLISHED)->latest('published_at');
-    }
-
-    public function scopeScheduled(Builder $query)
-    {
-        return $query->where('status', PostStatus::SCHEDULED)->latest('scheduled_for');
-    }
-
-    public function scopePending(Builder $query)
-    {
-        return $query->where('status', PostStatus::PENDING)->latest('created_at');
-    }
-
-    public function isScheduled()
-    {
-        return $this->status === PostStatus::SCHEDULED;
-    }
-
-    public function isStatusPublished()
-    {
-        return $this->status === PostStatus::PUBLISHED;
+        return $analytics->sum('screenPageViews') ?? 0;
     }
 
     protected function getMediaUrlAttribute()
     {
-        return Storage::url($this->media->path);;
-    }
-
-    public function excerpt($length = 150)
-    {
-        $content = tiptap_converter()->asText($this->attributes['body']);
-
-        return substr($content, 0, $length);
-    }
-
-    public function firstCategory()
-    {
-        return $this->categories->first();
+        return Storage::url($this->media->path);
     }
 
     public function getReadTimeAttribute()
@@ -150,6 +131,57 @@ class Post extends Model implements Auditable
     public function getEditUrlAttribute()
     {
         return PostResource::getUrl('edit', ['record' => $this]);
+    }
+
+    // Mutators
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
+    }
+
+    // Methods
+    public function excerpt($length = 150)
+    {
+        $content = tiptap_converter()->asText($this->attributes['body']);
+
+        return substr($content, 0, $length);
+    }
+
+    public function firstCategory()
+    {
+        return $this->categories->first();
+    }
+
+    // Scopes
+    public function scopePublished(Builder $query)
+    {
+        return $query->where('status', PostStatus::PUBLISHED)->latest('published_at');
+    }
+
+    public function scopeScheduled(Builder $query)
+    {
+        return $query->where('status', PostStatus::SCHEDULED)->latest('scheduled_for');
+    }
+
+    public function scopePending(Builder $query)
+    {
+        return $query->where('status', PostStatus::PENDING)->latest('created_at');
+    }
+
+    public function isNotPublished()
+    {
+        return !$this->isStatusPublished();
+    }
+
+    public function isScheduled()
+    {
+        return $this->status === PostStatus::SCHEDULED;
+    }
+
+    public function isStatusPublished()
+    {
+        return $this->status === PostStatus::PUBLISHED;
     }
 
     public static function getForm()
@@ -174,7 +206,6 @@ class Post extends Model implements Auditable
                 ->columnSpanFull(),
 
             Select::make('category_id')
-                // ->multiple()
                 ->required()
                 ->label('Category')
                 ->preload()
@@ -213,12 +244,8 @@ class Post extends Model implements Auditable
                         ->required(),
 
                     DateTimePicker::make('scheduled_for')
-                        ->visible(function ($get) {
-                            return $get('status') === PostStatus::SCHEDULED->value;
-                        })
-                        ->required(function ($get) {
-                            return $get('status') === PostStatus::SCHEDULED->value;
-                        })
+                        ->visible(fn($get) => $get('status') === PostStatus::SCHEDULED->value)
+                        ->required(fn($get) => $get('status') === PostStatus::SCHEDULED->value)
                         ->native(false),
                 ]),
 
