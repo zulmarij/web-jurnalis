@@ -38,6 +38,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Spatie\Analytics\Analytics;
+use Spatie\Analytics\Period;
 use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class PostResource extends Resource implements HasShieldPermissions
@@ -98,8 +100,26 @@ class PostResource extends Resource implements HasShieldPermissions
                 UserAvatarName::make('user')
                     ->label('Author'),
 
-                TextColumn::make('views')
-                    ->sortable(),
+                TextColumn::make('pageviews')
+                    ->label('Views')
+                    ->formatStateUsing(function ($state, $record) {
+                        $analytics = app(Analytics::class);
+                        $urlPath = $record->slug;
+
+                        $startDate = $record->created_at->format('Y-m-d');
+                        $endDate = now()->format('Y-m-d');
+
+                        $results = $analytics->performQuery(
+                            Period::between($startDate, $endDate),
+                            'ga:pageviews',
+                            [
+                                'dimensions' => 'ga:pagePath',
+                                'filters' => 'ga:pagePath==' . $urlPath
+                            ]
+                        );
+
+                        return $results->totalsForAllResults['ga:pageviews'] ?? 0;
+                    }),
 
                 TextColumn::make('created_at')
                     ->date()

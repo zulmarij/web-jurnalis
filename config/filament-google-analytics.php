@@ -32,7 +32,7 @@ return [
 
     'active_users_twenty_eight_day' => [
         'filament_dashboard' => false,
-        'global' => false,
+        'global' => true,
     ],
 
     'sessions' => [
