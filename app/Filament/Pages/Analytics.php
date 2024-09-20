@@ -20,7 +20,7 @@ class Analytics extends Page
             Widgets\VisitorsWidget::class,
             Widgets\ActiveUsersOneDayWidget::class,
             Widgets\ActiveUsersSevenDayWidget::class,
-            Widgets\ActiveUsersTwentyEightDayWidget::class,
+            // Widgets\ActiveUsersTwentyEightDayWidget::class,
             Widgets\SessionsWidget::class,
             Widgets\SessionsDurationWidget::class,
             Widgets\SessionsByCountryWidget::class,
