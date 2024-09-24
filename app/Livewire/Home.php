@@ -30,6 +30,7 @@ class Home extends Component
         $this->headlinePosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'headline');
         })
+            ->where('is_featured', false)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
@@ -37,6 +38,7 @@ class Home extends Component
         $this->nowYouKnowPosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'now-you-know');
         })
+            ->where('is_featured', false)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
@@ -44,6 +46,7 @@ class Home extends Component
         $this->soultNutrientPosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'soul-nutrient');
         })
+            ->where('is_featured', false)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
@@ -51,6 +54,7 @@ class Home extends Component
         $this->bigShiftPosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'big-shift');
         })
+            ->where('is_featured', false)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
@@ -58,6 +62,7 @@ class Home extends Component
         $this->popCulturePosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'pop-culture');
         })
+            ->where('is_featured', false)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
@@ -65,6 +70,7 @@ class Home extends Component
         $this->humanOfChangePosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'human-of-change');
         })
+            ->where('is_featured', false)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
@@ -72,6 +78,7 @@ class Home extends Component
         $this->socialPodiumPosts = Post::whereHas('categories', function ($query) {
             $query->where('slug', 'social-podium');
         })
+            ->where('is_featured', false)
             ->orderBy('created_at', 'desc')
             ->take(4)
             ->get();
