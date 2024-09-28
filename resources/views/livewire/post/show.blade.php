@@ -6,7 +6,7 @@
             <h1 class="my-4 text-2xl font-extrabold leading-tight text-gray-900 lg:my-6 lg:text-4xl dark:text-white">
                 {{ $this->post->title }}
             </h1>
-            <p class="mb-4 font-light text-gray-900 dark:text-gray-400">
+            <p class="mb-4 font-light text-gray-900 dark:text-gray-400 font-times">
                 {!! $this->post->sub_title !!}
             </p>
             <div class="flex justify-between items-center py-4 border-t border-b border-gray-200 dark:border-gray-700">
