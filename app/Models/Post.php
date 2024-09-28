@@ -139,18 +139,21 @@ class Post extends Model implements Auditable
 
     public function fetchViews()
     {
-        $analytics = Analytics::get(
-            period: Period::create($this->published_at, now()),
-            metrics: ['screenPageViews'],
-            dimensions: ['pagePath'],
-            dimensionFilter: (new FilterExpression())->setFilter(
-                (new Filter())->setFieldName('pagePath')->setStringFilter(
-                    (new Filter\StringFilter())->setMatchType(MatchType::BEGINS_WITH)->setValue('/' . $this->slug)
+        if ($this->attributes['published_at']) {
+            $analytics = Analytics::get(
+                period: Period::create($this->attributes['published_at'], now()),
+                metrics: ['screenPageViews'],
+                dimensions: ['pagePath'],
+                dimensionFilter: (new FilterExpression())->setFilter(
+                    (new Filter())->setFieldName('pagePath')->setStringFilter(
+                        (new Filter\StringFilter())->setMatchType(MatchType::BEGINS_WITH)->setValue('/' . $this->attributes['slug'])
+                    )
                 )
-            )
-        );
+            );
 
-        return $analytics->sum('screenPageViews') ?? 0;
+            return $analytics->sum('screenPageViews') ?? 0;
+        }
+        return 0;
     }
 
     // Scopes
