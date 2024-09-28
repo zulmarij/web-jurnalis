@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -138,23 +139,26 @@ class Post extends Model implements Auditable
     }
 
     public function fetchViews()
-    {
-        if (isset($this->attributes['published_at'])) {
+{
+    if (isset($this->published_at)) {
+        return Cache::remember("post_views_{$this->slug}", now()->addHours(1), function () {
             $analytics = Analytics::get(
-                period: Period::create($this->attributes['published_at'], now()),
+                period: Period::create($this->published_at, now()),
                 metrics: ['screenPageViews'],
                 dimensions: ['pagePath'],
                 dimensionFilter: (new FilterExpression())->setFilter(
                     (new Filter())->setFieldName('pagePath')->setStringFilter(
-                        (new Filter\StringFilter())->setMatchType(MatchType::BEGINS_WITH)->setValue('/' . $this->attributes['slug'])
+                        (new Filter\StringFilter())->setMatchType(MatchType::BEGINS_WITH)->setValue('/' . $this->slug)
                     )
                 )
             );
 
             return $analytics->sum('screenPageViews') ?? 0;
-        }
-        return 0;
+        });
     }
+    return 0;
+}
+
 
     // Scopes
     public function scopePublished(Builder $query)
