@@ -139,7 +139,7 @@ class Post extends Model implements Auditable
 
     public function fetchViews()
     {
-        if ($this->attributes['published_at']) {
+        if (isset($this->attributes['published_at'])) {
             $analytics = Analytics::get(
                 period: Period::create($this->attributes['published_at'], now()),
                 metrics: ['screenPageViews'],
